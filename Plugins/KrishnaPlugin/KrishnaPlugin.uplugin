@@ -1,0 +1,19 @@
+{
+  "FileVersion": 1,
+
+  "FriendlyName": "KrishnaPlugin",
+  "Version": 4,
+  "VersionName": "1.0",
+  "CreatedBy": "sgehrman",
+  "CreatedByURL": "http://distantfutu.re",
+  "Description": "Misc c++ blueprint nodes.",
+  "Category": "File",
+
+  "Modules": [
+    {
+      "Name": "KrishnaPlugin",
+      "Type": "Runtime"
+    },
+
+  ]
+}
