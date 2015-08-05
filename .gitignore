@@ -1,3 +1,11 @@
+# UE4
+/Binaries
+/DerivedDataCache
+/Intermediate
+/Saved
+*.sdf
+*.suo
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
