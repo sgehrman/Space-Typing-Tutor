@@ -1,0 +1,21 @@
+{
+  "Levels": [
+    {
+      "Name": "Level 1",
+      "Lines": [
+        "Never trust a skinny cook.",
+        "This is pretty cool.",
+        "Where is the nearest train station?"
+      ]
+    },
+    {
+      "Name": "Level 2",
+      "Lines": [
+        "Could learning to drive be dangerous?",
+        "What time is it in Tokyo?",
+        "Almost done. How are you doing?"
+      ]
+    }
+  ],
+  "Name": "Numbers"
+}

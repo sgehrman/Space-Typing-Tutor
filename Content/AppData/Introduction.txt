@@ -1,0 +1,14 @@
+
+This is a collection of User Interface experiments using Unreal Engine.
+
+On the main menu, move your head to control the onscreen cursor.
+
+Move over a sphere to select a level, then move cursor over center glowing dot to load the level.
+
+To get back to the main menu, press the Gamepad Start button or the Enter key on the keyboard.
+
+Each level is an experiment and not polished. Some are boring and pointless.
+
+by Distant Future - http://distantfutu.re
+
+#CircleFlowMap

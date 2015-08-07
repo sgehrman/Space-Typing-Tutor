@@ -1,0 +1,12 @@
+
+This is a virtual reality typing tutor.
+
+This is a early preview build and is not yet finished.
+
+Type the sentences as fast as you can.
+
+Get through all the levels and beat your high score.
+
+by Distant Future - http://distantfutu.re
+
+#Typewriter

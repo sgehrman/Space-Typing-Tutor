@@ -1,0 +1,272 @@
+{
+	"a:Scroll Wheel Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/d.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"A:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/o.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"a:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/f.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"a:Scroll Wheel Up":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/g.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"A:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/o.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"a:Right Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/b.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"s:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"s:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"d:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/m.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"d:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/m.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"W:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"W:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"f:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/t.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 2
+	},
+	"f:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/t.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 2
+	},
+	"m:Key Down":
+	{
+		"path": "E:Sounds/Drummer2/p.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 0.9999997615814209
+	},
+	"m:Generic":
+	{
+		"path": "E:Sounds/Drummer2/p.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 0.9999997615814209
+	},
+	"n:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"n:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	",:Key Down":
+	{
+		"path": "E:Sounds/Drummer2/u.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 0.9999997615814209
+	},
+	",:Generic":
+	{
+		"path": "E:Sounds/Drummer2/u.ogg",
+		"pitch": 1.0000001192092896,
+		"volume": 0.9999997615814209
+	},
+	"j:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/q.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"j:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/q.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"8:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"8:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"g:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/o.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"g:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/o.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"b:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"b:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/j.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"k:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/f.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"k:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/f.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"h:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/z.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"h:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/z.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:2:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/s.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:2:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/d.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:0:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:0:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/w.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:1:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/f.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:1:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/f.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:3:Left Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/k.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:3:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/t.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:2:Scroll Wheel Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/c.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:2:Scroll Wheel Up":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/d.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"Drum:3:Right Mouse":
+	{
+		"path": "F:Sounds/Output/Typedrummer Drums/t.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"q:Key Down":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/p.ogg",
+		"pitch": 1,
+		"volume": 1
+	},
+	"q:Generic":
+	{
+		"path": "F:Sounds/Output/Typedrummer Keyboard/p.ogg",
+		"pitch": 1,
+		"volume": 1
+	}
+}

@@ -1,0 +1,11 @@
+How to use Text Display:
+
+Edit a text file at Content/AppData with lines to display
+
+A # character at the beginning of a line is used for the level name to load when done
+
+Blank space doesn't matter
+
+Loading Main menu...
+
+#CircleFlowMap
