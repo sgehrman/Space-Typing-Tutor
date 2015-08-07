@@ -2,15 +2,15 @@
 
 #pragma once
 
-class AKeyInterceptorActor;
+class AKrishnaKeyCatcherActor;
 
 /**
  *
  */
-class SPACETYPINGTUTOR_API SKeyHijackWidget : public SCompoundWidget
+class SKrishnaKeyCatcherWidget : public SCompoundWidget
 {
 public:
-  SLATE_BEGIN_ARGS(SKeyHijackWidget){}
+  SLATE_BEGIN_ARGS(SKrishnaKeyCatcherWidget){}
   SLATE_ARGUMENT(AActor*, ActorOwner)
     SLATE_END_ARGS()
 
@@ -33,6 +33,6 @@ private:
 private:
   AActor* Owner;
 
-  AKeyInterceptorActor* FindKeyActor();
-  AKeyInterceptorActor* KeyActor;
+  AKrishnaKeyCatcherActor* FindKeyActor();
+  AKrishnaKeyCatcherActor* KeyActor;
 };

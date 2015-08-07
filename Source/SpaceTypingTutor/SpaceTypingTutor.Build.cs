@@ -6,7 +6,7 @@ public class SpaceTypingTutor : ModuleRules
 {
   public SpaceTypingTutor(TargetInfo Target)
   {
-    PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "SlateCore", "Slate" });
+    PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
 
     PrivateDependencyModuleNames.AddRange(new string[] { });
 

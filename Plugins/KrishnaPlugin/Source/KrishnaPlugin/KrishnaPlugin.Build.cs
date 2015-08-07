@@ -10,7 +10,10 @@ public class KrishnaPlugin : ModuleRules
 				"Core", 
 				"CoreUObject",
 				"Engine",
-        "Json"
+        "Json",
+        "InputCore",
+        "SlateCore",
+        "Slate"
 			}
 );
   }

@@ -1,13 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "SpaceTypingTutor.h"
-#include "SKeyHijackWidget.h"
-#include "KeyInterceptorActor.h"
+#include "KrishnaPluginPrivatePCH.h"
+
+#include "KrishnaKeyCatcherWidget.h"
+#include "KrishnaKeyCatcherActor.h"
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::White,text)
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
-void SKeyHijackWidget::Construct(const FArguments& InArgs)
+void SKrishnaKeyCatcherWidget::Construct(const FArguments& InArgs)
 {
   Owner = InArgs._ActorOwner;
   KeyActor = nullptr;  // c++ doesn't zero out vars?
@@ -18,14 +19,14 @@ void SKeyHijackWidget::Construct(const FArguments& InArgs)
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
-FReply SKeyHijackWidget::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent& InCharacterEvent)
+FReply SKrishnaKeyCatcherWidget::OnKeyChar(const FGeometry& MyGeometry, const FCharacterEvent& InCharacterEvent)
 {
   if (InCharacterEvent.GetCharacter() == 27) // ignore escape key
     return FReply::Unhandled();
 
   // print(FString::FromInt((int32)InCharacterEvent.GetCharacter()));
 
-  AKeyInterceptorActor* theActor = FindKeyActor();
+  AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
     theActor->SendKeyEvent(InCharacterEvent.GetCharacter(), InCharacterEvent.IsLeftShiftDown(), InCharacterEvent.IsRightShiftDown());
@@ -34,7 +35,7 @@ FReply SKeyHijackWidget::OnKeyChar(const FGeometry& MyGeometry, const FCharacter
   return FReply::Handled();
 }
 
-FReply SKeyHijackWidget::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
+FReply SKrishnaKeyCatcherWidget::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
   bool debug = false;
 
@@ -48,7 +49,7 @@ FReply SKeyHijackWidget::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent&
   if (IgnoreKeyEvent(InKeyEvent))
     return FReply::Unhandled();
 
-  AKeyInterceptorActor* theActor = FindKeyActor();
+  AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
     if (InKeyEvent.GetCharacter() == 0)
@@ -56,7 +57,7 @@ FReply SKeyHijackWidget::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent&
       // left or right shift
       if (InKeyEvent.GetKeyCode() == 160 || InKeyEvent.GetKeyCode() == 161)
       {
-        theActor->OnInterceptedShiftPress(InKeyEvent.GetKeyCode() == 160, InKeyEvent.GetKeyCode() == 161);
+        theActor->InterceptedShiftPress(InKeyEvent.GetKeyCode() == 160, InKeyEvent.GetKeyCode() == 161);
 
         // always return unhandled for just shift key.  shift-f1 needed this
         return FReply::Unhandled();
@@ -67,7 +68,7 @@ FReply SKeyHijackWidget::OnKeyDown(const FGeometry& MyGeometry, const FKeyEvent&
   return FReply::Handled();
 }
 
-FReply SKeyHijackWidget::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
+FReply SKrishnaKeyCatcherWidget::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& InKeyEvent)
 {
   bool debug = false;
 
@@ -81,7 +82,7 @@ FReply SKeyHijackWidget::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& I
   if (IgnoreKeyEvent(InKeyEvent))
     return FReply::Unhandled();
 
-  AKeyInterceptorActor* theActor = FindKeyActor();
+  AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
     if (InKeyEvent.GetCharacter() == 0)
@@ -90,7 +91,7 @@ FReply SKeyHijackWidget::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& I
       if (InKeyEvent.GetKeyCode() == 160 || InKeyEvent.GetKeyCode() == 161)
       {
         // passing false since this is keyup and shift should be up now
-        theActor->OnInterceptedShiftPress(false, false);
+        theActor->InterceptedShiftPress(false, false);
       }
     }
   }
@@ -98,14 +99,14 @@ FReply SKeyHijackWidget::OnKeyUp(const FGeometry& MyGeometry, const FKeyEvent& I
   return FReply::Handled();
 }
 
-AKeyInterceptorActor* SKeyHijackWidget::FindKeyActor()
+AKrishnaKeyCatcherActor* SKrishnaKeyCatcherWidget::FindKeyActor()
 {
   if (!KeyActor)
   {
     ULevel* CurLevel = Owner->GetWorld()->GetCurrentLevel();
     for (int32 ActorIndex = 0; ActorIndex < CurLevel->Actors.Num(); ++ActorIndex)
     {
-      AKeyInterceptorActor* theActor = Cast<AKeyInterceptorActor>(CurLevel->Actors[ActorIndex]);
+      AKrishnaKeyCatcherActor* theActor = Cast<AKrishnaKeyCatcherActor>(CurLevel->Actors[ActorIndex]);
       if (theActor)
       {
         KeyActor = theActor;
@@ -118,21 +119,21 @@ AKeyInterceptorActor* SKeyHijackWidget::FindKeyActor()
   return KeyActor;
 }
 
-FReply SKeyHijackWidget::OnFocusReceived(const FGeometry& MyGeometry, const FFocusEvent& InFocusEvent)
+FReply SKrishnaKeyCatcherWidget::OnFocusReceived(const FGeometry& MyGeometry, const FFocusEvent& InFocusEvent)
 {
   return FReply::Unhandled();
 }
 
-void SKeyHijackWidget::OnFocusLost(const FFocusEvent& InFocusEvent)
+void SKrishnaKeyCatcherWidget::OnFocusLost(const FFocusEvent& InFocusEvent)
 {
-  AKeyInterceptorActor* theActor = FindKeyActor();
+  AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
-    theActor->OnLostWidgetFocus();
+    theActor->LostWidgetFocus();
   }
 }
 
-bool SKeyHijackWidget::IgnoreKeyEvent(const FKeyEvent& InKeyEvent)
+bool SKrishnaKeyCatcherWidget::IgnoreKeyEvent(const FKeyEvent& InKeyEvent)
 {
   if (InKeyEvent.GetCharacter() == 27) // ignore escape key
     return true;
