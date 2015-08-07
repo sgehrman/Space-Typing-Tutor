@@ -29,7 +29,6 @@
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Ogg/Win64/VS2013/libogg_64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Vorbis/Win64/VS2013/libvorbis_64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Vorbis/Win64/VS2013/libvorbisfile_64.dll" />
-    <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Leap/Win64/Leap.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/OpenVR/OpenVRv000/Win64/openvr_api.dll" />
   </RuntimeDependencies>
   <bRequireDependenciesToExist>true</bRequireDependenciesToExist>
