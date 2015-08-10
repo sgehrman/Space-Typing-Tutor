@@ -11,6 +11,9 @@ public:
   UFUNCTION(BlueprintCallable, Category = "SystemUtils", meta = (DefaultToSelf = "Actor"))
     static void ForceGarbageCollection(AActor* Actor);
 
+  UFUNCTION(BlueprintCallable, Category = "SystemUtils", meta = (DefaultToSelf = "Actor"))
+    static void SetTextRendersVerticalAlign(UTextRenderComponent* TextRender);
+
   UFUNCTION(BlueprintCallable, Category = "SystemUtils")
     static UReverbEffect* CreateReverbEffect(
     float Density,

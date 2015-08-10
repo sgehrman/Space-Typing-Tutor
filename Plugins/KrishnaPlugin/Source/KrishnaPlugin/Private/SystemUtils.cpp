@@ -71,3 +71,7 @@ void USystemUtils::SplitReverbEffect(class UReverbEffect* reverb,
   AirAbsorptionGainHF = reverb->AirAbsorptionGainHF;
   RoomRolloffFactor = reverb->RoomRolloffFactor;
 }
+
+void USystemUtils::SetTextRendersVerticalAlign(UTextRenderComponent* TextRender) {
+  TextRender->VerticalAlignment = EVRTA_TextCenter;
+}
