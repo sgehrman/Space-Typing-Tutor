@@ -22,6 +22,11 @@ void UKrishnaMap::String_Int__AddPair(FString Key, int32 Value)
   StringInt.Add(Key, Value);
 }
 
+void UKrishnaMap::String_Float__AddPair(FString Key, float Value)
+{
+  StringFloat.Add(Key, Value);
+}
+
 FString UKrishnaMap::String_String__Get(FString Key, bool& IsValid)
 {
   IsValid = false;
@@ -44,6 +49,17 @@ int32 UKrishnaMap::String_Int__Get(FString Key, bool& IsValid)
   return StringInt[Key];
 }
 
+float UKrishnaMap::String_Float__Get(FString Key, bool& IsValid)
+{
+  IsValid = false;
+  if (!StringFloat.Contains(Key))
+  {
+    return 0;
+  }
+  IsValid = true;
+  return StringFloat[Key];
+}
+
 void UKrishnaMap::String_String__Remove(FString Key)
 {
   StringAndString.Remove(Key);
@@ -54,14 +70,20 @@ void UKrishnaMap::String_Int__Remove(FString Key)
   StringInt.Remove(Key);
 }
 
+void UKrishnaMap::String_Float__Remove(FString Key)
+{
+  StringFloat.Remove(Key);
+}
+
 void UKrishnaMap::Clear()
 {
   String_String__Clear();
   String_Int__Clear();
+  String_Float__Clear();
 }
 
 bool UKrishnaMap::IsEmpty() {
-  return ((StringInt.Num() == 0) && (StringAndString.Num() == 0));
+  return ((StringInt.Num() == 0) && (StringFloat.Num() == 0) && (StringAndString.Num() == 0));
 }
 
 void UKrishnaMap::String_String__Clear()
@@ -74,6 +96,11 @@ void UKrishnaMap::String_Int__Clear()
   StringInt.Empty();
 }
 
+void UKrishnaMap::String_Float__Clear()
+{
+  StringFloat.Empty();
+}
+
 void UKrishnaMap::String_String__GetKeys(TArray<FString>& OutKeys) {
   OutKeys.Empty();
   StringAndString.GetKeys(OutKeys);
@@ -82,4 +109,9 @@ void UKrishnaMap::String_String__GetKeys(TArray<FString>& OutKeys) {
 void UKrishnaMap::String_Int__GetKeys(TArray<FString>& OutKeys) {
   OutKeys.Empty();
   StringInt.GetKeys(OutKeys);
+}
+
+void UKrishnaMap::String_Float__GetKeys(TArray<FString>& OutKeys) {
+  OutKeys.Empty();
+  StringFloat.GetKeys(OutKeys);
 }
