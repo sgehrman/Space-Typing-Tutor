@@ -1,0 +1,10 @@
+{
+  "lines": [
+    "How to use Text Display",
+
+    "Copy the file Content/AppData/HowTo.json\nand modify as needed",
+
+    "Add maptoload for the level name to load when done",
+  ],
+  "maptoload": "put map name here"
+}
