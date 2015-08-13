@@ -1,7 +1,7 @@
 
 This is a virtual reality typing tutor.
 
-This is a early preview build and is not yet finished.
+This is a early preview build.
 
 Type the sentences as fast as you can.
 
