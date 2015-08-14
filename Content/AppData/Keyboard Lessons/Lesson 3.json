@@ -1,21 +1,12 @@
 {
-  "Levels": [
-    {
-      "Name": "Level 1",
-      "Lines": [
-        "Wow, this level is cool.",
-        "This is pretty cool.",
-        "Where is the nearest train station?"
-      ]
-    },
-    {
-      "Name": "Level 2",
-      "Lines": [
-        "Could learning to drive be dangerous?",
-        "What time is it in Tokyo?",
-        "Almost done. How are you doing?"
-      ]
-    }
-  ],
-  "Name": "Long Words"
+  "Name": "Long Words",
+
+  "Lines": [
+    "Wow, this level is cool.",
+    "This is pretty cool.",
+    "Where is the nearest train station?",
+    "Could learning to drive be dangerous?",
+    "What time is it in Tokyo?",
+    "Almost done. How are you doing?"
+  ]
 }
