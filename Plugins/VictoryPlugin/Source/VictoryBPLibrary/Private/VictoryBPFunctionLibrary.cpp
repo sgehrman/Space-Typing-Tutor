@@ -224,6 +224,40 @@ UVictoryBPFunctionLibrary::UVictoryBPFunctionLibrary(const FObjectInitializer& O
 	
 }
  
+//~~~~~~~
+//		AI
+//~~~~~~~ 
+EPathFollowingRequestResult::Type UVictoryBPFunctionLibrary::Victory_AI_MoveToWithFilter(
+	APawn* Pawn, 
+	const FVector& Dest, 
+	TSubclassOf<UNavigationQueryFilter> FilterClass ,
+	float AcceptanceRadius , 
+	bool bProjectDestinationToNavigation ,
+	bool bStopOnOverlap ,
+	bool bCanStrafe 
+){
+	if(!Pawn) 
+	{
+		return EPathFollowingRequestResult::Failed;
+	}
+	
+	AAIController* AIControl = Cast<AAIController>(Pawn->GetController());
+	if(!AIControl) 
+	{
+		return EPathFollowingRequestResult::Failed;
+	} 
+	
+	return AIControl->MoveToLocation(
+		Dest, 
+		AcceptanceRadius,
+		bStopOnOverlap, 	//bStopOnOverlap
+		true,						//bUsePathfinding 
+		bProjectDestinationToNavigation, 
+		bCanStrafe,			//bCanStrafe
+		FilterClass			//<~~~
+	);
+}
+	
 //~~~~~~
 //Physics
 //~~~~~~ 
@@ -4192,97 +4226,112 @@ static IImageWrapperPtr GetImageWrapperByExtention(const FString InImagePath)
     return nullptr;
 }
 
-
-bool UVictoryBPFunctionLibrary::CaptureComponent2D_SaveImage(class USceneCaptureComponent2D* Target, const FString InImagePath)
+bool UVictoryBPFunctionLibrary::CaptureComponent2D_SaveImage(class USceneCaptureComponent2D* Target, const FString ImagePath, const FLinearColor ClearColour)
 {
-    // Bad scene capture component! No render target! Stay! Stay! Ok, feed!... wait, where was I?
-    if ((Target == nullptr) || (Target->TextureTarget == nullptr))
-    {
-        return false;
-    }
-    
-    FRenderTarget* RenderTarget = Target->TextureTarget->GameThread_GetRenderTargetResource();
-    if (RenderTarget == nullptr)
-    {
-        return false;
-    }
- 
-    const int32 Width = Target->TextureTarget->SizeX;
-    const int32 Height = Target->TextureTarget->SizeY;
-      
-    const EPixelFormat PixelFormat = Target->TextureTarget->GetFormat();
-    const int32 ImageBytes = CalculateImageBytes(Width, Height, 0, PixelFormat);
-									//build.cs "RenderCore"
-    TArray<FColor> RawPixels;
-    RawPixels.AddUninitialized(ImageBytes);
+	// Bad scene capture component! No render target! Stay! Stay! Ok, feed!... wait, where was I?
+	if ((Target == nullptr) || (Target->TextureTarget == nullptr))
+	{
+		return false;
+	}
+	
+	FRenderTarget* RenderTarget = Target->TextureTarget->GameThread_GetRenderTargetResource();
+	if (RenderTarget == nullptr)
+	{
+		return false;
+	}
 
-    if (!RenderTarget->ReadPixels(RawPixels))
-    {
-        return false;
-    }
+	TArray<FColor> RawPixels;
+	
+	// Format not supported - use PF_B8G8R8A8.
+	if (Target->TextureTarget->GetFormat() != PF_B8G8R8A8)
+	{
+		// TRACEWARN("Format not supported - use PF_B8G8R8A8.");
+		return false;
+	}
 
-    for (auto& Pixel : RawPixels)
-    {
-        Pixel.A = 255; // Thank Rama (again) for figuring this out.
-    }
-    
-    IImageWrapperPtr ImageWrapper = GetImageWrapperByExtention(InImagePath);
+	if (!RenderTarget->ReadPixels(RawPixels))
+	{
+		return false;
+	}
 
-    if (ImageWrapper.IsValid() &&  ImageWrapper->SetRaw(&RawPixels[0], ImageBytes, Width, Height,  ERGBFormat::BGRA, 8))
-    {
-        FFileHelper::SaveArrayToFile(ImageWrapper->GetCompressed(), *InImagePath);
-        return true;
-    }
-    
-    return false;
+	// Convert to FColor.
+	FColor ClearFColour = ClearColour.ToFColor(false); // FIXME - want sRGB or not?
+
+	for (auto& Pixel : RawPixels)
+	{
+		// Switch Red/Blue changes.
+		const uint8 PR = Pixel.R;
+		const uint8 PB = Pixel.B;
+		Pixel.R = PB;
+		Pixel.B = PR;
+
+		// Set alpha based on RGB values of ClearColour.
+		Pixel.A = ((Pixel.R == ClearFColour.R) && (Pixel.R == ClearFColour.R) && (Pixel.R == ClearFColour.R)) ? 0 : 255;
+	}
+	
+	IImageWrapperPtr ImageWrapper = GetImageWrapperByExtention(ImagePath);
+
+	const int32 Width = Target->TextureTarget->SizeX;
+	const int32 Height = Target->TextureTarget->SizeY;
+	
+	if (ImageWrapper.IsValid() && ImageWrapper->SetRaw(&RawPixels[0], RawPixels.Num() * sizeof(FColor), Width, Height, ERGBFormat::RGBA, 8))
+	{
+		FFileHelper::SaveArrayToFile(ImageWrapper->GetCompressed(), *ImagePath);
+		return true;
+	}
+	
+	return false;
 }
 
-bool UVictoryBPFunctionLibrary::Capture2D_SaveImage(class ASceneCapture2D* Target, const FString InImagePath)
+bool UVictoryBPFunctionLibrary::Capture2D_SaveImage(class ASceneCapture2D* Target, const FString ImagePath, const FLinearColor ClearColour)
 {
-    return (Target) ? CaptureComponent2D_SaveImage(Target->GetCaptureComponent2D(), InImagePath) : false;
-}
-  
-UTexture2D* UVictoryBPFunctionLibrary::LoadTexture2D_FromFileByExtension(const FString InImagePath,  bool& IsValid, int32& OutWidth, int32& OutHeight)
-{
-    UTexture2D* Texture = nullptr;
-    IsValid = false;
-
-    TArray<uint8> CompressedData;
-    if (!FFileHelper::LoadFileToArray(CompressedData, *InImagePath))
-    {
-        return nullptr;
-    }
-    
-    IImageWrapperPtr ImageWrapper = GetImageWrapperByExtention(InImagePath);
-
-    if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(CompressedData.GetData(), CompressedData.Num()))
-    { 
-        const TArray<uint8>* UncompressedBGRA = nullptr;
-        
-        if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
-        {
-            Texture = UTexture2D::CreateTransient(ImageWrapper->GetWidth(), ImageWrapper->GetHeight(), PF_B8G8R8A8);
-            
-            if (Texture != nullptr)
-            {
-                IsValid = true;
-                
-                OutWidth = ImageWrapper->GetWidth();
-                OutHeight = ImageWrapper->GetHeight();
-
-                void* TextureData = Texture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-                FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
-                Texture->PlatformData->Mips[0].BulkData.Unlock();
-                Texture->UpdateResource();
-            }
-        }
-    }
-
-    return Texture;
+	return (Target) ? CaptureComponent2D_SaveImage(Target->GetCaptureComponent2D(), ImagePath, ClearColour) : false;
 }
 
+UTexture2D* UVictoryBPFunctionLibrary::LoadTexture2D_FromFileByExtension(const FString& ImagePath, bool& IsValid, int32& OutWidth, int32& OutHeight)
+{
+	UTexture2D* Texture = nullptr;
+	IsValid = false;
 
+	// To avoid log spam, make sure it exists before doing anything else.
+	if (!FPlatformFileManager::Get().GetPlatformFile().FileExists(*ImagePath))
+	{
+		return nullptr;
+	}
 
+	TArray<uint8> CompressedData;
+	if (!FFileHelper::LoadFileToArray(CompressedData, *ImagePath))
+	{
+		return nullptr;
+	}
+	
+	IImageWrapperPtr ImageWrapper = GetImageWrapperByExtention(ImagePath);
+
+	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(CompressedData.GetData(), CompressedData.Num()))
+	{ 
+		const TArray<uint8>* UncompressedRGBA = nullptr;
+		
+		if (ImageWrapper->GetRaw(ERGBFormat::RGBA, 8, UncompressedRGBA))
+		{
+			Texture = UTexture2D::CreateTransient(ImageWrapper->GetWidth(), ImageWrapper->GetHeight(), PF_R8G8B8A8);
+			
+			if (Texture != nullptr)
+			{
+				IsValid = true;
+				
+				OutWidth = ImageWrapper->GetWidth();
+				OutHeight = ImageWrapper->GetHeight();
+
+				void* TextureData = Texture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
+				FMemory::Memcpy(TextureData, UncompressedRGBA->GetData(), UncompressedRGBA->Num());
+				Texture->PlatformData->Mips[0].BulkData.Unlock();
+				Texture->UpdateResource();
+			}
+		}
+	}
+
+	return Texture;
+}
 
 //~~~~~~~~~ END OF CONTRIBUTED BY KRIS ~~~~~~~~~~~
  
