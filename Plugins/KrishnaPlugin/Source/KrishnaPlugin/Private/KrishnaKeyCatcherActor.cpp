@@ -21,7 +21,7 @@ void AKrishnaKeyCatcherActor::BeginPlay()
   AddSlateWidget();
 }
 
-void AKrishnaKeyCatcherActor::SendKeyEvent(TCHAR theChar, bool leftShiftDown, bool rightShiftDown)
+void AKrishnaKeyCatcherActor::SendKeyEvent(TCHAR theChar)
 {
   OnInterceptedKeyPress.Broadcast((int32)theChar, FString(1, &theChar));
 }

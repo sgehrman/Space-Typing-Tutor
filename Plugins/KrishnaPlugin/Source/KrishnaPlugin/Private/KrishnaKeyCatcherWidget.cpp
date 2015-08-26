@@ -29,7 +29,7 @@ FReply SKrishnaKeyCatcherWidget::OnKeyChar(const FGeometry& MyGeometry, const FC
   AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
-    theActor->SendKeyEvent(InCharacterEvent.GetCharacter(), InCharacterEvent.IsLeftShiftDown(), InCharacterEvent.IsRightShiftDown());
+    theActor->SendKeyEvent(InCharacterEvent.GetCharacter());
   }
 
   return FReply::Handled();
@@ -55,12 +55,26 @@ FReply SKrishnaKeyCatcherWidget::OnKeyDown(const FGeometry& MyGeometry, const FK
     if (InKeyEvent.GetCharacter() == 0)
     {
       // left or right shift
-      if (InKeyEvent.GetKeyCode() == 160 || InKeyEvent.GetKeyCode() == 161)
+      switch (InKeyEvent.GetKeyCode())
       {
+      case 160:
+      case 161:
         theActor->InterceptedShiftPress(InKeyEvent.GetKeyCode() == 160, InKeyEvent.GetKeyCode() == 161);
 
         // always return unhandled for just shift key.  shift-f1 needed this
         return FReply::Unhandled();
+        break;
+      case 38: // UP
+      case 39: // Right
+      case 37: // Left
+      case 40: // Down
+        theActor->SendKeyEvent(InKeyEvent.GetKeyCode());
+        break;
+      case 46: // Delete
+        theActor->SendKeyEvent(InKeyEvent.GetKeyCode());
+        break;
+      default:
+        break;
       }
     }
   }

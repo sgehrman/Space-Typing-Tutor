@@ -22,7 +22,7 @@ public:
   virtual void BeginPlay() override;
 
   // called from widget
-  void SendKeyEvent(TCHAR theChar, bool leftShiftDown, bool rightShiftDown);
+  void SendKeyEvent(TCHAR theChar);
   void InterceptedShiftPress(bool leftShiftDown, bool rightShiftDown);
   void LostWidgetFocus();
 
