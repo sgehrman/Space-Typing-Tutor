@@ -10,4 +10,7 @@ class UFileSystemUtils : public UObject
 public:
   UFUNCTION(BlueprintPure, Category = "FileSystemUtils")
     static bool LoadFileToString(const FString& InFilePath, FString& OutString);
+
+  UFUNCTION(BlueprintPure, Category = "FileSystemUtils")
+    static FString CreateUniqueFilename(const FString& Directory, const FString& Prefix, const FString& Extension);
 };

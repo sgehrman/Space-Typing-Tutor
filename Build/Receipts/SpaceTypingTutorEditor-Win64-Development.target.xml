@@ -7,21 +7,21 @@
     <Property Name="Precompile" Value="False" />
   </Properties>
   <BuildProducts>
-    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Binaries\Win64\UE4Editor-JSONQuery-3060.dll" Type="DynamicLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Binaries\Win64\UE4Editor-JSONQuery-3060.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-JSONQuery-3060.lib" Type="ImportLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Binaries\Win64\UE4Editor-KrishnaPlugin-3060.dll" Type="DynamicLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Binaries\Win64\UE4Editor-KrishnaPlugin-3060.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-KrishnaPlugin-3060.lib" Type="ImportLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryEdEngine-3060.dll" Type="DynamicLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryEdEngine-3060.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-VictoryEdEngine-3060.lib" Type="ImportLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryBPLibrary-3060.dll" Type="DynamicLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryBPLibrary-3060.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-VictoryBPLibrary-3060.lib" Type="ImportLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-SpaceTypingTutor-3060.dll" Type="DynamicLibrary" />
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-SpaceTypingTutor-3060.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(ProjectDir)\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-SpaceTypingTutor-3060.lib" Type="ImportLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Binaries\Win64\UE4Editor-JSONQuery-2624.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Binaries\Win64\UE4Editor-JSONQuery-2624.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\JSONQuery\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-JSONQuery-2624.lib" Type="ImportLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Binaries\Win64\UE4Editor-KrishnaPlugin-2624.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Binaries\Win64\UE4Editor-KrishnaPlugin-2624.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\KrishnaPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-KrishnaPlugin-2624.lib" Type="ImportLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryEdEngine-2624.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryEdEngine-2624.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-VictoryEdEngine-2624.lib" Type="ImportLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryBPLibrary-2624.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Binaries\Win64\UE4Editor-VictoryBPLibrary-2624.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Plugins\VictoryPlugin\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-VictoryBPLibrary-2624.lib" Type="ImportLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-SpaceTypingTutor-2624.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-SpaceTypingTutor-2624.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-SpaceTypingTutor-2624.lib" Type="ImportLibrary" />
   </BuildProducts>
   <RuntimeDependencies>
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3PROFILE_x64.dll" />

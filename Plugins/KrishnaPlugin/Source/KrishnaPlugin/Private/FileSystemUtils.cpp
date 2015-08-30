@@ -5,3 +5,18 @@ bool UFileSystemUtils::LoadFileToString(const FString& InFilePath, FString& OutS
 {
   return FFileHelper::LoadFileToString(OutString, *InFilePath);
 }
+
+FString UFileSystemUtils::CreateUniqueFilename(const FString& Directory, const FString& Prefix, const FString& Extension)
+{
+  FString UniqueFilename;
+  int32 index = 0;
+
+  do
+  {
+    index++;
+
+    UniqueFilename = FPaths::Combine(*Directory, *FString::Printf(TEXT("%s %d.%s"), *Prefix, index, *Extension));
+  } while (IFileManager::Get().FileSize(*UniqueFilename) >= 0);
+
+  return UniqueFilename;
+}
