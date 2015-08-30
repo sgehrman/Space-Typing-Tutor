@@ -29,7 +29,16 @@ FReply SKrishnaKeyCatcherWidget::OnKeyChar(const FGeometry& MyGeometry, const FC
   AKrishnaKeyCatcherActor* theActor = FindKeyActor();
   if (theActor)
   {
-    theActor->SendKeyEvent(InCharacterEvent.GetCharacter());
+    switch (InCharacterEvent.GetCharacter()) {
+    case 8:
+    case 13:
+    case 9:
+      theActor->SendKeyEvent(InCharacterEvent.GetCharacter(), 0);
+      break;
+    default:
+      theActor->SendKeyEvent(0, InCharacterEvent.GetCharacter());
+      break;
+    }
   }
 
   return FReply::Handled();
@@ -68,10 +77,10 @@ FReply SKrishnaKeyCatcherWidget::OnKeyDown(const FGeometry& MyGeometry, const FK
       case 39: // Right
       case 37: // Left
       case 40: // Down
-        theActor->SendKeyEvent(InKeyEvent.GetKeyCode());
+        theActor->SendKeyEvent(InKeyEvent.GetKeyCode(), 0);
         break;
       case 46: // Delete
-        theActor->SendKeyEvent(InKeyEvent.GetKeyCode());
+        theActor->SendKeyEvent(InKeyEvent.GetKeyCode(), 0);
         break;
       default:
         break;
