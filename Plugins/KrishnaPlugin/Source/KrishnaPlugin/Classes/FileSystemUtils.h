@@ -13,4 +13,11 @@ public:
 
   UFUNCTION(BlueprintPure, Category = "FileSystemUtils")
     static FString CreateUniqueFilename(const FString& Directory, const FString& Prefix, const FString& Extension);
+
+  UFUNCTION(BlueprintPure, Category = "FileSystemUtils")
+    static bool FileExists(const FString& File);
+
+  UFUNCTION(BlueprintPure, Category = "FileSystemUtils")
+    static bool FolderExists(const FString& Dir);
+
 };

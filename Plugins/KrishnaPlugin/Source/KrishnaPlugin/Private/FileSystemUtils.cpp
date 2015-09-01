@@ -20,3 +20,13 @@ FString UFileSystemUtils::CreateUniqueFilename(const FString& Directory, const F
 
   return UniqueFilename;
 }
+
+bool UFileSystemUtils::FileExists(const FString& File)
+{
+  return FPlatformFileManager::Get().GetPlatformFile().FileExists(*File);
+}
+
+bool UFileSystemUtils::FolderExists(const FString& Dir)
+{
+  return FPlatformFileManager::Get().GetPlatformFile().DirectoryExists(*Dir);
+}
