@@ -1,10 +1,9 @@
 {
   "lines": [
-    "This is a virtual reality typing tutor.",
-    "This is a early preview build.",
-    "Type the sentences as fast as you can.",
-    "Get through all the levels and beat your high score.",
-    "by Distant Future - http:\/\/distantfutu.re\nCode: Krishna\nArt: Jazmin\nUX: Cris"
+    "This is a typing tutor.",
+    "Designed for Oculus VR,\nbut works great on desktop too!",
+    "Early preview build...",
+    "by Distant Future - http:\/\/distantfutu.re\nCode: 57eve\nArt: Jazmin"
   ],
   "maptoload": "Typewriter"
 }
