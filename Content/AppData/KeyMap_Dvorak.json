@@ -1,0 +1,289 @@
+{
+  "keys": [
+    {
+      "key": "`",
+      "shift": "~",
+      "finger": 0
+    },
+    {
+      "key": "1",
+      "shift": "!",
+      "finger": 0
+    },
+    {
+      "key": "2",
+      "shift": "@",
+      "finger": 1
+    },
+    {
+      "key": "3",
+      "shift": "#",
+      "finger": 2
+    },
+    {
+      "key": "4",
+      "shift": "$",
+      "finger": 3
+    },
+    {
+      "key": "5",
+      "shift": "%",
+      "finger": 3
+    },
+    {
+      "key": "6",
+      "shift": "^",
+      "finger": 6
+    },
+    {
+      "key": "7",
+      "shift": "&",
+      "finger": 6
+    },
+    {
+      "key": "8",
+      "shift": "*",
+      "finger": 7
+    },
+    {
+      "key": "9",
+      "shift": "(",
+      "finger": 8
+    },
+    {
+      "key": "0",
+      "shift": ")",
+      "finger": 9
+    },
+    {
+      "key": "[",
+      "shift": "{",
+      "finger": 9
+    },
+    {
+      "key": "]",
+      "shift": "}",
+      "finger": 9
+    },
+    {
+      "key": "backspace",
+      "shift": "",
+      "finger": 9
+    },
+    {
+      "key": "----",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": "tab",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": "'",
+      "shift": "\"",
+      "finger": 0
+    },
+    {
+      "key": ",",
+      "shift": "<",
+      "finger": 1
+    },
+    {
+      "key": ".",
+      "shift": ">",
+      "finger": 2
+    },
+    {
+      "key": "p",
+      "shift": "P",
+      "finger": 3
+    },
+    {
+      "key": "y",
+      "shift": "Y",
+      "finger": 3
+    },
+    {
+      "key": "f",
+      "shift": "F",
+      "finger": 6
+    },
+    {
+      "key": "g",
+      "shift": "G",
+      "finger": 6
+    },
+    {
+      "key": "c",
+      "shift": "C",
+      "finger": 7
+    },
+    {
+      "key": "r",
+      "shift": "R",
+      "finger": 8
+    },
+    {
+      "key": "l",
+      "shift": "L",
+      "finger": 9
+    },
+    {
+      "key": "/",
+      "shift": "?",
+      "finger": 9
+    },
+    {
+      "key": "=",
+      "shift": "+",
+      "finger": 9
+    },
+    {
+      "key": "\\",
+      "shift": "|",
+      "finger": 9
+    },
+    {
+      "key": "----",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": "a",
+      "shift": "A",
+      "finger": 0
+    },
+    {
+      "key": "o",
+      "shift": "O",
+      "finger": 1
+    },
+    {
+      "key": "e",
+      "shift": "E",
+      "finger": 2
+    },
+    {
+      "key": "u",
+      "shift": "U",
+      "finger": 3
+    },
+    {
+      "key": "i",
+      "shift": "I",
+      "finger": 3
+    },
+    {
+      "key": "d",
+      "shift": "D",
+      "finger": 6
+    },
+    {
+      "key": "h",
+      "shift": "H",
+      "finger": 6
+    },
+    {
+      "key": "t",
+      "shift": "T",
+      "finger": 7
+    },
+    {
+      "key": "n",
+      "shift": "N",
+      "finger": 8
+    },
+    {
+      "key": "s",
+      "shift": "S",
+      "finger": 9
+    },
+    {
+      "key": "-",
+      "shift": "_",
+      "finger": 9
+    },
+    {
+      "key": "enter",
+      "shift": "",
+      "finger": 9
+    },
+    {
+      "key": "----",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": "lshift",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": ";",
+      "shift": ":",
+      "finger": 0
+    },
+    {
+      "key": "q",
+      "shift": "Q",
+      "finger": 1
+    },
+    {
+      "key": "j",
+      "shift": "J",
+      "finger": 2
+    },
+    {
+      "key": "k",
+      "shift": "K",
+      "finger": 3
+    },
+    {
+      "key": "x",
+      "shift": "X",
+      "finger": 3
+    },
+    {
+      "key": "b",
+      "shift": "B",
+      "finger": 6
+    },
+    {
+      "key": "m",
+      "shift": "M",
+      "finger": 6
+    },
+    {
+      "key": "w",
+      "shift": "W",
+      "finger": 7
+    },
+    {
+      "key": "v",
+      "shift": "V",
+      "finger": 8
+    },
+    {
+      "key": "z",
+      "shift": "Z",
+      "finger": 9
+    },
+    {
+      "key": "rshift",
+      "shift": "",
+      "finger": 9
+    },
+    {
+      "key": "----",
+      "shift": "",
+      "finger": 0
+    },
+    {
+      "key": "space",
+      "shift": "",
+      "finger": 4
+    }
+  ]
+}
