@@ -9,22 +9,13 @@
 	"EngineVersion" : 1579795,
 	"Description" : "Vertex Snapping, Drop Object(s) to Nearest Surface, Other Custom Editor Features & Custom Blueprint Nodes For You!",
 	"Category" : "Victory Plugin",
-	
+	 
 	"Modules" :
-	[		
-		{
-
-			"Name" : "VictoryEdEngine",
-			"Type" : "Editor",
-			"LoadingPhase" : "PreDefault"
-		
-		},
+	[	
 		{
 			"Name" : "VictoryBPLibrary",
 			"Type" : "Runtime",
 			"LoadingPhase" : "PreDefault"
-		},
-
-		
+		}
 	]
 }

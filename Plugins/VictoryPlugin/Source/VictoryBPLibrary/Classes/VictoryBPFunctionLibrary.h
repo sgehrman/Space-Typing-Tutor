@@ -461,7 +461,7 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	static FVector2D ProjectWorldToScreenPosition(const FVector& WorldLocation);
 
 	/** Make sure to save off the return value as a global variable in one of your BPs or else it will get garbage collected! */
-	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary", meta = (DeprecatedFunction, DeprecationMessage="Epic has introduced Construct Object as of 4.9.0, I recommend you use that instead! -Rama", HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
 	static UObject* CreateObject(UObject* WorldContextObject, UClass* TheObjectClass);
 
 	/** Make sure to save off the return value as a global variable in one of your BPs or else it will get garbage collected! */
@@ -829,9 +829,9 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 
 	//~~~~~~~~~~~~~
 
-	/** Returns false if the operation could not occur. PawnVelocityCorrection is used only if the Mesh belongs to a Pawn/Character. */
+	/** Returns false if the operation could not occur. PawnVelocityCorrection is deprecated as of 4.9 due to internal improvements in the Engine. */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
-	static bool AnimatedVertex__GetAnimatedVertexLocations(USkeletalMeshComponent* Mesh, TArray<FVector>& Locations, bool PerformPawnVelocityCorrection=true );
+	static bool AnimatedVertex__GetAnimatedVertexLocations(USkeletalMeshComponent* Mesh, TArray<FVector>& Locations);
 
 	/** Returns false if the operation could not occur. */
 	//UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
@@ -1297,21 +1297,27 @@ static void SetBloomIntensity(APostProcessVolume* PostProcessVolume,float Intens
  *@param    Index            The index to check.
  *@return    Bool if integer is valid index for this array
 */
-UFUNCTION(Category="VictoryBPLibrary|Utilities|Array", BlueprintPure, CustomThunk, meta=(DisplayName = "Valid Index", CompactNodeTitle = "VALID INDEX", ArrayParm = "TargetArray|ArrayProperty"))
-static bool Array_IsValidIndex(const TArray<int32>& TargetArray, const UArrayProperty* ArrayProperty, int32 Index);
+UFUNCTION(Category="VictoryBPLibrary|Utilities|Array", BlueprintPure, CustomThunk, meta=(DisplayName = "Valid Index", CompactNodeTitle = "VALID INDEX", ArrayParm = "TargetArray"))
+static bool Array_IsValidIndex(const TArray<int32>& TargetArray, int32 Index);
 
 static bool GenericArray_IsValidIndex(void* TargetArray, const UArrayProperty* ArrayProp, int32 Index);
- 
+  
 DECLARE_FUNCTION(execArray_IsValidIndex)
 {
+	Stack.MostRecentProperty = nullptr;
 	Stack.StepCompiledIn<UArrayProperty>(NULL);
 	void* ArrayAddr = Stack.MostRecentPropertyAddress;
-
-	P_GET_OBJECT(UArrayProperty, ArrayProperty);
+	UArrayProperty* ArrayProperty = Cast<UArrayProperty>(Stack.MostRecentProperty);
+	if (!ArrayProperty)
+	{
+		Stack.bArrayContextFailed = true;
+		return;
+	}
 	P_GET_PROPERTY(UIntProperty, Index);
 	P_FINISH;
-  
-	*(bool*)RESULT_PARAM = GenericArray_IsValidIndex(ArrayAddr, ArrayProperty, Index);
+
+	bool WasValid = GenericArray_IsValidIndex(ArrayAddr, ArrayProperty, Index);
+	*(bool*)RESULT_PARAM = WasValid;
 }
 
 /** Get the time target actor was created. */

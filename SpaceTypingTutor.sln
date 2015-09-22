@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{C0ADA0F6-D6F9-4834-95ED-E439AAB40BC0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{9888C56B-B4E8-44FB-AC31-89F4066628D0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{DE0D8E2A-F114-4C9A-A6ED-C9DA29C8A3E9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceTypingTutor", "Intermediate\ProjectFiles\SpaceTypingTutor.vcxproj", "{EA1745D6-7D04-4729-A8D1-65EACD2566A0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{3BE4F80A-2722-424A-97BE-B927ED3028CB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{267579A1-58B3-4A52-B38E-A54793CD45E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpaceTypingTutor", "Intermediate\ProjectFiles\SpaceTypingTutor.vcxproj", "{EA1745D6-7D04-4729-A8D1-65EACD2566A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +30,26 @@ Global
 		Shipping|Win64 = Shipping|Win64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
+		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.DebugGame Editor|Android.ActiveCfg = DebugGame_Editor|Tegra-Android
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.DebugGame Editor|Android.Build.0 = DebugGame_Editor|Tegra-Android
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.DebugGame Editor|Win32.ActiveCfg = DebugGame_Editor|Win32
@@ -60,32 +80,12 @@ Global
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.Shipping|Win32.Build.0 = Shipping_Game|Win32
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.Shipping|Win64.ActiveCfg = Shipping_Game|x64
 		{EA1745D6-7D04-4729-A8D1-65EACD2566A0}.Shipping|Win64.Build.0 = Shipping_Game|x64
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.DebugGame|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development Editor|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Development|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Android.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win32.ActiveCfg = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win32.Build.0 = BuiltWithUnrealBuildTool|Win32
-		{267579A1-58B3-4A52-B38E-A54793CD45E0}.Shipping|Win64.ActiveCfg = BuiltWithUnrealBuildTool|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EA1745D6-7D04-4729-A8D1-65EACD2566A0} = {DE0D8E2A-F114-4C9A-A6ED-C9DA29C8A3E9}
-		{267579A1-58B3-4A52-B38E-A54793CD45E0} = {C0ADA0F6-D6F9-4834-95ED-E439AAB40BC0}
+		{267579A1-58B3-4A52-B38E-A54793CD45E0} = {9888C56B-B4E8-44FB-AC31-89F4066628D0}
+		{EA1745D6-7D04-4729-A8D1-65EACD2566A0} = {3BE4F80A-2722-424A-97BE-B927ED3028CB}
 	EndGlobalSection
 EndGlobal
