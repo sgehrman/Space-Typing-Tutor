@@ -75,3 +75,29 @@ void USystemUtils::SplitReverbEffect(class UReverbEffect* reverb,
 void USystemUtils::SetTextRendersVerticalAlign(UTextRenderComponent* TextRender) {
   TextRender->VerticalAlignment = EVRTA_TextCenter;
 }
+
+FString USystemUtils::KeyboardLayout() {
+  FString result = TEXT("US");
+
+#if PLATFORM_WINDOWS
+  HKL KeyboardLayout = GetKeyboardLayout(0);
+
+  // print(FString::FormatAsNumber(LOWORD(KeyboardLayout)));
+  // print(FString::FormatAsNumber(HIWORD(KeyboardLayout)));
+
+  switch (PRIMARYLANGID(LOWORD(KeyboardLayout)))
+  {
+  case LANG_ENGLISH:
+    result = TEXT("US");
+
+    if (HIWORD(KeyboardLayout) == 0xF002)  // Dvorak
+    {
+      result = TEXT("US.DVORAK");
+    }
+    break;
+
+  }
+#endif
+
+  return result;
+}

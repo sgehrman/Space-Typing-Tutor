@@ -15,6 +15,9 @@ public:
     static void SetTextRendersVerticalAlign(UTextRenderComponent* TextRender);
 
   UFUNCTION(BlueprintCallable, Category = "SystemUtils")
+    static FString KeyboardLayout();
+
+  UFUNCTION(BlueprintCallable, Category = "SystemUtils")
     static UReverbEffect* CreateReverbEffect(
     float Density,
     float Diffusion,
