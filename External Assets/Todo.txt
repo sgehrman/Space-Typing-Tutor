@@ -23,5 +23,14 @@
 ----Notes----
 -------------
 
-Not a typing tutor, but a typing speed game. Compete with friends.  Make a simple VR social game where two people can see avatars like Couch knights?
+Not a typing tutor, but a typing speed game. Compete with friends and have leaderboards.  Make a simple VR social game where two people can see avatars like Couch knights?
 
+
+------------------------
+----Target Platforms----
+------------------------
+
+1. VR stores: (vive, oculus, etc)
+2. Desktop app stores: (mac, windows, linux)
+3. Amazon?
+4. Mobile/GearVR - maybe. Must first buy and test a bluetooth keyboard to evaluate
