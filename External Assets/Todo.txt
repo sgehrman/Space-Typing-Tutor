@@ -14,7 +14,7 @@
 9. Improve or remove escape key menu
 10. Keyboard location adjustment mode
 11. Fireworks or something cool at end of level
-12. 
+12. Make sure .ini files are optimal
 
 
 
