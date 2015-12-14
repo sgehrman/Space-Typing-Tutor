@@ -1,0 +1,27 @@
+
+------------
+----Todo----
+------------
+
+1. Hand meshes for finger indicator?
+2. FPS issues on intro screen? 
+3. Network two or more players for VR social gameplay?
+4. Tutorial Mode (fixing now SNG)
+5. Level Editor instructions
+6. Credits page
+7. New Meshes/Materials for keyboard (find artist)
+8. New Meshes/Materials for buttons, scoreboard etc. (find artist)
+9. Improve or remove escape key menu
+10. Keyboard location adjustment mode
+11. Fireworks or something cool at end of level
+12. 
+
+
+
+
+-------------
+----Notes----
+-------------
+
+Not a typing tutor, but a typing speed game. Compete with friends.  Make a simple VR social game where two people can see avatars like Couch knights?
+

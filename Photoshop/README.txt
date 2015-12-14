@@ -1,1 +1,0 @@
-Put any original Photoshop files here incase we need to recreate a png or sprite sheet.
