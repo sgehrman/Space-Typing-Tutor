@@ -6,7 +6,7 @@
 1. Hand meshes for finger indicator?
 2. FPS issues on intro screen? 
 3. Network two or more players for VR social gameplay?
-4. Tutorial Mode (fixing now SNG)
+4. Leaderboards on all platforms.
 5. Level Editor instructions
 6. Credits page
 7. New Meshes/Materials for keyboard (find artist)
@@ -31,6 +31,6 @@ Not a typing tutor, but a typing speed game. Compete with friends and have leade
 ------------------------
 
 1. VR stores: (vive, oculus, etc)
-2. Desktop app stores: (mac, windows, linux)
+2. Desktop app stores: (steam, mac, windows, linux)
 3. Amazon?
 4. Mobile/GearVR - maybe. Must first buy and test a bluetooth keyboard to evaluate
