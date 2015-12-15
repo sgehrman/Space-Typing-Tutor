@@ -4,19 +4,18 @@
 ------------
 
 1. Hand meshes for finger indicator?
-2. FPS issues on intro screen? instanced static meshes help?
+2. Improve level picker UI
 3. Network two or more players for VR social gameplay?
 4. Leaderboards on all platforms.
 5. Level Editor instructions
-6. Credits page
+6. Improve Credits page
 7. New Meshes/Materials for keyboard (find artist)
 8. New Meshes/Materials for buttons, scoreboard etc. (find artist)
 9. Improve or remove escape key menu
 10. Keyboard location adjustment mode
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
-
-
+13. Reticle weirdness on VR
 
 
 -------------
@@ -28,7 +27,7 @@ Not a typing tutor, but a typing speed game. Compete with friends and have leade
 Type an rss feed
 Type a Twitter feed
 Type a reddit feed
-type javascript code
+type javascript/c++/c# code
 
 On first launch, direct user to click tutorial first.
 
