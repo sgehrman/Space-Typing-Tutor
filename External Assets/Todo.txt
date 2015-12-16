@@ -15,7 +15,9 @@
 10. Keyboard location adjustment mode
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
-13. Reticle weirdness on VR
+13. Slide level chooser down after button click?
+14. Add close box on level chooser?
+15. Improve text of level chooser, include number of levels.
 
 
 -------------
@@ -39,3 +41,4 @@ On first launch, direct user to click tutorial first.
 2. Desktop app stores: (steam, mac, windows, linux)
 3. Amazon?
 4. Mobile/GearVR - maybe. Must first buy and test a bluetooth keyboard to evaluate
+
