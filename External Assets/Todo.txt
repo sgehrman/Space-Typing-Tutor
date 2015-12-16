@@ -21,6 +21,7 @@
 16. Return key on GridPager selecting wrong item
 17. Turn off look selection stuff timer thing?
 18. Typing screen judders.
+19. Grid item pager, back button triggering selection
 
 -------------
 ----Notes----
