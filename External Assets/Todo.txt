@@ -18,7 +18,9 @@
 13. Slide level chooser down after button click?
 14. Add close box on level chooser?
 15. Improve text of level chooser, include number of levels.
-
+16. Return key on GridPager selecting wrong item
+17. Turn off look selection stuff timer thing?
+18. Typing screen judders.
 
 -------------
 ----Notes----
