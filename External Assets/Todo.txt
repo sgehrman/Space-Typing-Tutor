@@ -22,6 +22,7 @@
 17. Turn off look selection stuff timer thing?
 18. Typing screen judders.
 19. Grid item pager, back button triggering selection
+20. All clicks going to grid pager?
 
 -------------
 ----Notes----
