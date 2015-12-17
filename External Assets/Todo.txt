@@ -16,9 +16,9 @@
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
 13. Slide level chooser down after button click?
-14. 
+14. Light debug tool
 15. Improve text of level chooser, include number of levels.
-16. 
+16. Add debug tools menu
 17. Turn off look selection stuff timer thing?
 18. Typing screen judders.
 
