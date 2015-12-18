@@ -4,7 +4,7 @@
 ------------
 
 1. Hand meshes for finger indicator?
-2. Improve level picker UI
+2. 
 3. Network two or more players for VR social gameplay?
 4. Leaderboards on all platforms.
 5. Level Editor instructions
@@ -15,12 +15,12 @@
 10. Keyboard location adjustment mode
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
-13. Slide level chooser down after button click?
-14. Light debug tool
+13. 
+14. 
 15. Improve text of level chooser, include number of levels.
-16. Add debug tools menu
-17. Turn off look selection stuff timer thing?
-18. Typing screen judders.
+16.  
+17. 
+18. Enable return key for click?
 
 -------------
 ----Notes----
