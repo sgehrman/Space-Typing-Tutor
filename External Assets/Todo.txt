@@ -16,10 +16,10 @@
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
 13. 
-14. 
+14. tutorial working?
 15. Improve text of level chooser, include number of levels.
 16. Use ?Valid node for checking nil?
-17. Update victory plugin.  appendmultiple still useful?
+17. appendmultiple still useful?
 18. Enable return key for click?
 
 -------------
