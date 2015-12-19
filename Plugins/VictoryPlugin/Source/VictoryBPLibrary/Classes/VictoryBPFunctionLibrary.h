@@ -172,6 +172,25 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 {
 	GENERATED_UCLASS_BODY()
 	
+	//~~~~~~~~~~~~~~~~~~
+	// 	Level Generation
+	//~~~~~~~~~~~~~~~~~~ 
+	/**  Load a level to a specific location and rotation, can create multiple of the same level! 
+	*
+	* Ensure that each InstanceNumber is unique to spawn multiple instances of the same level!
+	*
+	*  <3 Rama
+	*
+	* @param MapFolderOffOfContent - Maps or Maps/TileSets/TileSet1  etc
+	* @param LevelName - Just the level name itself, such as Tile1
+	* @param InstanceNumber - Ensure this is unique by keeping count to spawn as many instances of same level as you want!
+	* @param Location - Worldspace location where the level should be spawned
+	* @param Rotation - Worldspace rotation for rotating the entire level
+	* @return false if the level name was not found 
+	*/ 
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Dynamic Level Generation",meta=(WorldContext="WorldContextObject"))
+	static ULevelStreaming* VictoryLoadLevelInstance(UObject* WorldContextObject, FString MapFolderOffOfContent, FString LevelName, int32 InstanceNumber, FVector Location, FRotator Rotation,bool& Success);
+	
 	//~~~~~~~~~~
 	// 	AI
 	//~~~~~~~~~~
@@ -219,6 +238,10 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Physics", meta=(Keywords="Closest Surface"))
 	static float GetDistanceBetweenComponentSurfaces(UPrimitiveComponent* CollisionComponent1, UPrimitiveComponent* CollisionComponent2, FVector& PointOnSurface1, FVector& PointOnSurface2);
 	
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Physics", meta=(Keywords="APEX Piece fracture damage PhysX Physics"))
+	static bool VictoryDestructible_DestroyChunk(UDestructibleComponent* DestructibleComp, int32 HitItem);
+	 
+	
 	//~~~~~~~~~~
 	// 	Joy ISM
 	//~~~~~~~~~~
@@ -253,13 +276,19 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	
 	//~~~~ Key Re Binding ! ~~~~
 
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Key Rebinding")
+	static void VictoryGetAllAxisAndActionMappingsForKey(FKey Key, TArray<FVictoryInput>& ActionBindings, TArray<FVictoryInputAxis>& AxisBindings);
+	
 	//	Axis Mapping
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Key Rebinding")
 	static FVictoryInputAxis VictoryGetVictoryInputAxis(const FKeyEvent& KeyEvent);
 	
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Key Rebinding")
 	static void VictoryGetAllAxisKeyBindings(TArray<FVictoryInputAxis>& Bindings);
-		 
+		
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Key Rebinding")
+	static void VictoryRemoveAxisKeyBind(FVictoryInputAxis ToRemove);
+	
 	/** You can leave the AsString field blank :) Returns false if the key could not be found as an existing mapping!  Enjoy! <3  Rama */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Key Rebinding")
 	static bool VictoryReBindAxisKey(FVictoryInputAxis Original, FVictoryInputAxis NewBinding);
@@ -291,6 +320,9 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Key Rebinding")
 	static bool VictoryReBindActionKey(FVictoryInput Original, FVictoryInput NewBinding);
 
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Key Rebinding")
+	static void VictoryRemoveActionKeyBind(FVictoryInput ToRemove);
+	
 	//~~~~~~~~~~~~~~~~~~~~
 
 	/** Change volume of Sound class of your choosing, sets the volume instantly! Returns false if the sound class was not found and volume was not set. */
@@ -303,6 +335,23 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 
 	//~~~~~~~~~~~~~~~~~~~~
 
+	/** Easily add to an integer! <3 Rama*/
+	UFUNCTION(BlueprintCallable, meta = (CompactNodeTitle = "+=",Keywords = "increment integer"), Category = "VictoryBPLibrary|Math|Integer")
+	static void VictoryIntPlusEquals(UPARAM(ref) int32& Int, int32 Add, int32& IntOut);
+	
+	/** Easily subtract from an integer! <3 Rama*/
+	UFUNCTION(BlueprintCallable, meta = (CompactNodeTitle = "-=",Keywords = "decrement integer"), Category = "VictoryBPLibrary|Math|Integer")
+	static void VictoryIntMinusEquals(UPARAM(ref) int32& Int, int32 Sub, int32& IntOut);
+	
+	/** Sort an integer array, smallest value will be at index 0 after sorting. Modifies the input array, no new data created. <3 Rama */
+	UFUNCTION(BlueprintCallable, meta = (Keywords = "sort integer array"), Category = "VictoryBPLibrary|Array")
+	static void VictorySortIntArray(UPARAM(ref) TArray<int32>& IntArray, TArray<int32>& IntArrayRef);
+	
+	/** Sort a float array, smallest value will be at index 0 after sorting. Modifies the input array, no new data created. */
+	UFUNCTION(BlueprintCallable, meta = (Keywords = "sort float array"), Category = "VictoryBPLibrary|Array")
+	static void VictorySortFloatArray(UPARAM(ref) TArray<float>& FloatArray, TArray<float>& FloatArrayRef);
+	
+	//~~~
 	
 	/**
 	 * Tries to reach Target based on distance from Current position, giving a nice smooth feeling when tracking a position.
@@ -342,37 +391,53 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary",meta=(WorldContext="WorldContextObject"))
 	static APlayerStart* GetPlayerStart(UObject* WorldContextObject,FString PlayerStartName);
 	
+	/** Convert String Back To Vector. IsValid indicates whether or not the string could be successfully converted. */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!",meta=(DisplayName = "String to Vector", CompactNodeTitle = "->"))
+	static void Conversions__StringToVector(const FString& String, FVector& ConvertedVector, bool& IsValid);
+	
+	/** Convert String Back To Rotator. IsValid indicates whether or not the string could be successfully converted. */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!",meta=(DisplayName = "String to Rotator", CompactNodeTitle = "->"))
+	static void Conversions__StringToRotator(const FString& String, FRotator& ConvertedRotator, bool& IsValid);
+	
+	/** Convert String Back To Color. IsValid indicates whether or not the string could be successfully converted. */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!",meta=(DisplayName = "String to Color", CompactNodeTitle = "->"))
+	static void Conversions__StringToColor(const FString& String, FLinearColor& ConvertedColor, bool& IsValid);
+	
+	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
+	//UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
+	//static uint8 Victory_ConvertStringToByte(UEnum* Enum,FString String);
+	//! not working yet, always getting 255
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static bool VictoryGetCustomConfigVar_Bool(FString SectionName, FString VariableName);
+	static bool VictoryGetCustomConfigVar_Bool(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static int32 VictoryGetCustomConfigVar_Int(FString SectionName, FString VariableName);
+	static int32 VictoryGetCustomConfigVar_Int(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static float VictoryGetCustomConfigVar_Float(FString SectionName, FString VariableName);
+	static float VictoryGetCustomConfigVar_Float(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static FVector VictoryGetCustomConfigVar_Vector(FString SectionName, FString VariableName);
+	static FVector VictoryGetCustomConfigVar_Vector(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static FRotator VictoryGetCustomConfigVar_Rotator(FString SectionName, FString VariableName);
+	static FRotator VictoryGetCustomConfigVar_Rotator(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static FLinearColor VictoryGetCustomConfigVar_Color(FString SectionName, FString VariableName);
+	static FLinearColor VictoryGetCustomConfigVar_Color(FString SectionName, FString VariableName, bool& IsValid);
 
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static FString VictoryGetCustomConfigVar_String(FString SectionName, FString VariableName);
+	static FString VictoryGetCustomConfigVar_String(FString SectionName, FString VariableName, bool& IsValid);
 
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")
-	static FVector2D VictoryGetCustomConfigVar_Vector2D(FString SectionName, FString VariableName);
+	static FVector2D VictoryGetCustomConfigVar_Vector2D(FString SectionName, FString VariableName, bool& IsValid);
  
 	//~~~~~~~~~~~~~~~~~~~~
 
@@ -589,19 +654,19 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	//~~~
 
 	/** Max of all array entries. Returns -1 if the supplied array is empty. Returns the index of the max value as well as the value itself. */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Array")
 		static void MaxOfFloatArray(const TArray<float>& FloatArray, int32& IndexOfMaxValue, float& MaxValue);
 
 	/** Max of all array entries. Returns -1 if the supplied array is empty. Returns the index of the max value as well as the value itself. */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Array")
 		static void MaxOfIntArray(const TArray<int32>& IntArray, int32& IndexOfMaxValue, int32& MaxValue);
 
 	/** Min of all array entries. Returns -1 if the supplied array is empty. Returns the index of the min value as well as the value itself. */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Array")
 		static void MinOfFloatArray(const TArray<float>& FloatArray, int32& IndexOfMinValue, float& MinValue);
 
 	/** Min of all array entries. Returns -1 if the supplied array is empty. Returns the index of the min value as well as the value itself. */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Array")
 		static void MinOfIntArray(const TArray<int32>& IntArray, int32& IndexOfMinValue, int32& MinValue);
 
 	//~~~
@@ -617,7 +682,12 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 		static int32 Conversion__FloatToRoundedInteger(float IN_Float);
 
 		
-		
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|String")
+	static void Victory_GetStringFromOSClipboard(FString& FromClipboard);
+	
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|String")
+	static void Victory_SaveStringToOSClipboard(const FString& ToClipboard);
+	
 	/**
 	 * Returns whether or not the SearchIn string contains the supplied Substring.  
 	 * 	Ex: "cat" is a contained within "concatenation" as a substring.
@@ -638,9 +708,12 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	static FString String__CombineStrings_Multi(FString A, FString B);
 	  
 	/** Returns three arrays containing all of the resolutions and refresh rates for the current computer's current display adapter. You can loop over just 1 of the arrays and use the current index for the other two arrays, as all 3 arrays will always have the same length. Returns false if operation could not occur. */
-	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "VictoryBPLibrary", meta = (Keywords = "screen resolutions display adapter"))
-		static bool OptionsMenu__GetDisplayAdapterScreenResolutions(TArray<int32>& Widths, TArray<int32>& Heights, TArray<int32>& RefreshRates, bool IncludeRefreshRates = false);
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary", meta = (Keywords = "screen resolutions display adapter"))
+	static bool OptionsMenu__GetDisplayAdapterScreenResolutions(TArray<int32>& Widths, TArray<int32>& Heights, TArray<int32>& RefreshRates, bool IncludeRefreshRates = false);
 
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary", meta=(Keyword="amd nvidia graphics card brand make model"))
+	static void GetUserDisplayAdapterBrand(bool& IsAMD, bool& IsNvidia, bool& IsIntel, bool& IsUnknown, int32& UnknownId);
+	
 	/** Clones an actor by obtaining its class and creating a copy. Returns the created Actor. The cloned actor is set to have the rotation and location of the initial actor. You can optionally specify location / rotation offsets for the new clone from original actor. Use IsValid to know if the actor was able to be cloned. */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
 		static AStaticMeshActor* Clone__StaticMeshActor(UObject* WorldContextObject, bool&IsValid, AStaticMeshActor* ToClone, FVector LocationOffset = FVector(0, 0, 0), FRotator RotationOffset = FRotator(0, 0, 0));
@@ -701,8 +774,10 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	/** Get Player Character's Player Controller. Requires: The Passed in Actor must be a character and it must be a player controlled character. IsValid will tell you if the return value is valid, make sure to do a Branch to confirm this! */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
 		static APlayerController* Accessor__GetPlayerController(AActor* TheCharacter, bool&IsValid);
-
-		
+	
+	//UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
+	static void VictorySimulateKeyPress(APlayerController* ThePC, FKey Key, EInputEvent EventType);
+	 
 	/** SET the Mouse Position! Returns false if the operation could not occur */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
 		static bool Viewport__SetMousePosition(const APlayerController* ThePC, const float& PosX, const float& PosY);
@@ -718,15 +793,15 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 
 	
 	/** Convert Vector to Rotator*/
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!")
 		static FRotator Conversions__VectorToRotator(const FVector& TheVector);
  
 	/** Convert Rotator to Vector */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!")
 		static FVector Conversions__RotatorToVector(const FRotator& TheRotator);
 
 	/** Input Actor is expected to be a ACharacter, conversion done internally for your convenience */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!")
 		static FRotator Character__GetControllerRotation(AActor * TheCharacter);
 
 		
@@ -814,10 +889,10 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	/** Does a simple line trace given Trace Start and End, and if a Character is hit by the trace, then a component trace is performed on that character's mesh. Trace Owner is ignored when doing the trace.\n\nReturns the Character that was hit, as an Actor, as well as the name of the bone that was closest to the impact point of the trace. Also returns the impact point itself as well as the impact normal.\n\nUsing component trace ensures accuracy for testing against bones and sockets.\n\nIsValid: Will be true only if the component trace also hit someting. But the Returned Actor will contain an actor if any actor at all was hit by the simple trace. */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Traces")
 		static AActor* Traces__CharacterMeshTrace___ClosestBone(AActor* TraceOwner, const FVector& TraceStart, const FVector& TraceEnd, FVector& OutImpactPoint, FVector& OutImpactNormal, FName& ClosestBoneName, FVector & ClosestBoneLocation, bool&IsValid);
-
+ 
 	/** Does a simple line trace given Trace Start and End, and if a Character is hit by the trace, then a component trace is performed on that character's mesh. Returns the name of the socket that was closest to the impact point of the trace. Also returns the impact point itself as well as the impact normal. Also returns the Socket Location. Using component trace ensures accuracy for testing against bones and sockets.*/
-	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Traces")
-		static AActor* Traces__CharacterMeshTrace___ClosestSocket(const AActor * TraceOwner, const FVector& TraceStart, const FVector& TraceEnd, FVector& OutImpactPoint, FVector& OutImpactNormal, FName& ClosestSocketName, FVector & SocketLocation, bool&IsValid);
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Traces",meta=(WorldContext="WorldContextObject"))
+		static AActor* Traces__CharacterMeshTrace___ClosestSocket(UObject* WorldContextObject, const AActor * TraceOwner, const FVector& TraceStart, const FVector& TraceEnd, FVector& OutImpactPoint, FVector& OutImpactNormal, FName& ClosestSocketName, FVector & SocketLocation, bool&IsValid);
 
 	/** Returns the float as a String with Precision, Precision 0 = no decimal value. Precison 1 = 1 decimal place. The re-precisioned result is rounded appropriately. */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")
@@ -1116,9 +1191,16 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	/** Save an array of pixels to disk as a PNG! It is very important that you supply the curret width and height of the image! Returns false if Width * Height != Array length or file could not be saved to the location specified. I return an ErrorString to clarify what the exact issue was. -Rama */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Load Texture From File",meta=(Keywords="create image png jpg jpeg bmp bitmap ico icon exr icns"))
 	static bool Victory_SavePixels(const FString& FullFilePath,int32 Width, int32 Height, const TArray<FLinearColor>& ImagePixels, FString& ErrorString);
-	 
 	
-	 
+	/** This will modify the original T2D to remove sRGB and change compressiont o VectorDisplacementMap to ensure accurate pixel reading. -Rama*/
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Load Texture From File",meta=(Keywords="create image png jpg jpeg bmp bitmap ico icon exr icns"))
+	static bool Victory_GetPixelFromT2D(UTexture2D* T2D, int32 X, int32 Y, FLinearColor& PixelColor);
+	
+	/** This will modify the original T2D to remove sRGB and change compressiont o VectorDisplacementMap to ensure accurate pixel reading. -Rama*/
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Load Texture From File",meta=(Keywords="create image png jpg jpeg bmp bitmap ico icon exr icns"))
+	static bool Victory_GetPixelsArrayFromT2D(UTexture2D* T2D, int32& TextureWidth, int32& TextureHeight,TArray<FLinearColor>& PixelArray);
+	
+	  
 	/** Contributed by UE4 forum member n00854180t! Plays a .ogg sound from file, attached to and following the specified component. This is a fire and forget sound. Replication is also not handled at this point.
 	* @param FilePath - Path to sound file to play
 	* @param AttachComponent - Component to attach to.

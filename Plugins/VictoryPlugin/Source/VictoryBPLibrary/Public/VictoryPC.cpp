@@ -51,6 +51,12 @@ bool AVictoryPC::VictoryPC_GetMyIP_SendRequest()
 	
 void AVictoryPC::HTTPOnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
-	this->VictoryPC_GetMyIP_DataReceived(Response->GetContentAsString());
+	FString ResponseStr = "AVictoryPC::HTTPOnResponseReceived>>> Connection Error";
+	if(bWasSuccessful) 
+	{
+		ResponseStr = Response->GetContentAsString();
+	} 
+	 
+	this->VictoryPC_GetMyIP_DataReceived(ResponseStr);
 }
  
