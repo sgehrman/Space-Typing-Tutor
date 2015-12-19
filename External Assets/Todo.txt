@@ -44,3 +44,13 @@ On first launch, direct user to click tutorial first.
 3. Amazon?
 4. Mobile/GearVR - maybe. Must first buy and test a bluetooth keyboard to evaluate
 
+-----------------------
+----Game Play Ideas----
+-----------------------
+1. Affirmation mode
+- ask for sentence
+- ask for number of times to type it
+- go
+2. Rss headline feed reader.  read the news headlines while practicing typing
+3. Coders practice.  Type lines of code
+4. Famous quotes.  Name appears after end of line typed with explosion
