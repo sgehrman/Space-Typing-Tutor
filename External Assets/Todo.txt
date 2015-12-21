@@ -15,12 +15,13 @@
 10. Keyboard location adjustment mode
 11. Fireworks or something cool at end of level
 12. Make sure .ini files are optimal
-13. 
+13. Cursor draws on top and has no depth
 14. tutorial working?
 15. Improve text of level chooser, include number of levels.
 16. Use ?Valid node for checking nil?
 17. appendmultiple still useful?
 18. Enable return key for click?
+19. Mouse controlled reticle like AltspaceVR?
 
 -------------
 ----Notes----
