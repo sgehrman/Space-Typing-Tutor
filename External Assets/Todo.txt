@@ -4,7 +4,7 @@
 ------------
 
 1. Hand meshes for finger indicator?
-2. 
+2. Explosion causes judder, get better particle effect
 3. Network two or more players for VR social gameplay?
 4. Leaderboards on all platforms.
 5. Level Editor instructions
