@@ -1,9 +1,9 @@
 {
-  "lines": [
-    "This is a 3D typing tutor.",
-    "Designed for Oculus VR,\nbut also works great in 2D!",
-    "Early preview build...",
-    "by Distant Future - http:\/\/distantfutu.re\nCode: 57eve\nArt: Jazmin\nTesting: SFKai"
-  ],
-  "maptoload": "Menu"
+    "lines": [
+        "This is a 3D typing tutor.",
+        "Improve your typing speed with presence.",
+        "Designed for Oculus VR,\nbut also works great on a monitor.",
+        "by Distant Future - http:\/\/distantfutu.re\nCode: 57eve\nArt: Jazmin\nTesting: SFKai"
+    ],
+    "maptoload": "Menu"
 }
