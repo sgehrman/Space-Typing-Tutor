@@ -22,6 +22,7 @@
 17. appendmultiple still useful?
 18. Enable return key for click?
 19. Mouse controlled reticle like AltspaceVR?
+20. Add instructions how to edit json files.
 
 -------------
 ----Notes----
