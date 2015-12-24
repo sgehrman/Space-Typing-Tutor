@@ -4,23 +4,26 @@ using UnrealBuildTool;
 
 public class SpaceTypingTutor : ModuleRules
 {
-  public SpaceTypingTutor(TargetInfo Target)
-  {
-    PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
+    public SpaceTypingTutor(TargetInfo Target)
+    {
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
 
-    PrivateDependencyModuleNames.AddRange(new string[] { });
+        PrivateDependencyModuleNames.AddRange(new string[] { });
 
-    // Uncomment if you are using Slate UI
-    // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+        // SNG added: https://docs.unrealengine.com/latest/INT/Programming/Online/Steam/index.html
+        DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
 
-    // Uncomment if you are using online features
-    // PrivateDependencyModuleNames.Add("OnlineSubsystem");
-    // if ((Target.Platform == UnrealTargetPlatform.Win32) || (Target.Platform == UnrealTargetPlatform.Win64))
-    // {
-    //		if (UEBuildConfiguration.bCompileSteamOSS == true)
-    //		{
-    //			DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
-    //		}
-    // }
-  }
+        // Uncomment if you are using Slate UI
+        // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+
+        // Uncomment if you are using online features
+        // PrivateDependencyModuleNames.Add("OnlineSubsystem");
+        // if ((Target.Platform == UnrealTargetPlatform.Win32) || (Target.Platform == UnrealTargetPlatform.Win64))
+        // {
+        //		if (UEBuildConfiguration.bCompileSteamOSS == true)
+        //		{
+        //			DynamicallyLoadedModuleNames.Add("OnlineSubsystemSteam");
+        //		}
+        // }
+    }
 }
