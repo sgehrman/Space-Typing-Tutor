@@ -37,6 +37,9 @@ type javascript/c++/c# code
 
 On first launch, direct user to click tutorial first.
 
+// leaderboard url
+http://dreamlo.com/lb/EnaNh2hQ0ESeJLcqLTDCEQ96exRHbDREScjvrQ2ZelbA
+
 ------------------------
 ----Target Platforms----
 ------------------------
