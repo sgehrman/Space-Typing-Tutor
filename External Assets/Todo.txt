@@ -5,26 +5,27 @@
 
 1. Leaderboards on all platforms.
 2. Replace Disable Music and SFX with Volume sliders
-3. Hand meshes for finger indicator?
-4. Explosion causes judder, get better particle effect
-5. Network two or more players for VR social gameplay?
-6. Level Editor instructions
-7. Improve Credits page
-8. New Meshes/Materials for keyboard (find artist)
-9. New Meshes/Materials for buttons, scoreboard etc. (find artist)
-10. Improve or remove escape key menu
-11. Keyboard location adjustment mode
-12. Fireworks or something cool at end of level
-13. Make sure .ini files are optimal
-14. Cursor draws on top and has no depth
-15. tutorial working?
-16. Improve text of level chooser, include number of levels.
-17. Use ?Valid node for checking nil?
-18. appendmultiple still useful?
-19. Enable return key for click?
-20. Mouse controlled reticle like AltspaceVR?
-21. Add instructions how to edit json files.
-22. Tell instructions to look at virtual keyboard to as a aid to remember where keys are located in tutorial
+3. Update App Icon
+4. Hand meshes for finger indicator?
+5. Explosion causes judder, get better particle effect
+6. Network two or more players for VR social gameplay?
+7. Level Editor instructions
+8. Improve Credits page
+9. New Meshes/Materials for keyboard (find artist)
+10. New Meshes/Materials for buttons, scoreboard etc. (find artist)
+11. Improve or remove escape key menu
+12. Keyboard location adjustment mode
+13. Fireworks or something cool at end of level
+14. Make sure .ini files are optimal
+15. Cursor draws on top and has no depth
+16. tutorial working?
+17. Improve text of level chooser, include number of levels.
+18. Use ?Valid node for checking nil?
+19. appendmultiple still useful?
+20. Enable return key for click?
+21. Mouse controlled reticle like AltspaceVR?
+22. Add instructions how to edit json files.
+23. Tell instructions to look at virtual keyboard to as a aid to remember where keys are located in tutorial
 
 -------------
 ----Notes----
