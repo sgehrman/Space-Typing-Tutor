@@ -3,27 +3,29 @@
 ----Todo----
 ------------
 
-1. Hand meshes for finger indicator?
-2. Explosion causes judder, get better particle effect
-3. Network two or more players for VR social gameplay?
-4. Leaderboards on all platforms.
-5. Level Editor instructions
-6. Improve Credits page
-7. New Meshes/Materials for keyboard (find artist)
-8. New Meshes/Materials for buttons, scoreboard etc. (find artist)
-9. Improve or remove escape key menu
-10. Keyboard location adjustment mode
-11. Fireworks or something cool at end of level
-12. Make sure .ini files are optimal
-13. Cursor draws on top and has no depth
-14. tutorial working?
-15. Improve text of level chooser, include number of levels.
-16. Use ?Valid node for checking nil?
-17. appendmultiple still useful?
-18. Enable return key for click?
-19. Mouse controlled reticle like AltspaceVR?
-20. Add instructions how to edit json files.
-21. Tell instructions to look at virtual keyboard to as a aid to remember where keys are located in tutorial
+1. Leaderboards on all platforms.
+2. Replace Disable Music and SFX with Volume sliders
+3. Hand meshes for finger indicator?
+4. Explosion causes judder, get better particle effect
+5. Network two or more players for VR social gameplay?
+6. Level Editor instructions
+7. Improve Credits page
+8. New Meshes/Materials for keyboard (find artist)
+9. New Meshes/Materials for buttons, scoreboard etc. (find artist)
+10. Improve or remove escape key menu
+11. Keyboard location adjustment mode
+12. Fireworks or something cool at end of level
+13. Make sure .ini files are optimal
+14. Cursor draws on top and has no depth
+15. tutorial working?
+16. Improve text of level chooser, include number of levels.
+17. Use ?Valid node for checking nil?
+18. appendmultiple still useful?
+19. Enable return key for click?
+20. Mouse controlled reticle like AltspaceVR?
+21. Add instructions how to edit json files.
+22. Tell instructions to look at virtual keyboard to as a aid to remember where keys are located in tutorial
+
 -------------
 ----Notes----
 -------------
