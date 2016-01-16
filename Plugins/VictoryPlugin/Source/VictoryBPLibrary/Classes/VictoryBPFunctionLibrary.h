@@ -335,6 +335,27 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 
 	//~~~~~~~~~~~~~~~~~~~~
 
+	/** Creates a plane centered at Base, with facing direction of Normal. You can pass in a Rotator to the Normal, but it wont maintain the roll value, only pitch and yaw (usually sufficient) <3 Rama */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Math|Plane", meta=(Keywords="plane"))
+	static FPlane CreatePlane(FVector Base, FVector Normal)
+	{ 
+		return FPlane(Base,Normal);
+	}
+	 
+	/** >0: point is in front of the plane, <0: behind, =0: on the plane **/ 
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Math|Plane")
+	static void PointDistanceToPlane(const FPlane& Plane, FVector Point,float& Distance)
+	{ 
+		Distance = Plane.PlaneDot(Point);
+	}
+	 
+	/** Use a larger tolerance to allow inaccuracy of measurement in certain situations */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Math|Plane")
+	static bool IsPointOnPlane(const FPlane& Plane, FVector Point, float Tolerance= 0.01)
+	{  
+		return FMath::Abs(Plane.PlaneDot(Point)) < Tolerance;
+	}
+	
 	/** Easily add to an integer! <3 Rama*/
 	UFUNCTION(BlueprintCallable, meta = (CompactNodeTitle = "+=",Keywords = "increment integer"), Category = "VictoryBPLibrary|Math|Integer")
 	static void VictoryIntPlusEquals(UPARAM(ref) int32& Int, int32 Add, int32& IntOut);
@@ -402,6 +423,10 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	/** Convert String Back To Color. IsValid indicates whether or not the string could be successfully converted. */
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!",meta=(DisplayName = "String to Color", CompactNodeTitle = "->"))
 	static void Conversions__StringToColor(const FString& String, FLinearColor& ConvertedColor, bool& IsValid);
+	
+	/** Convert Color to String! */
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Conversion!",meta=(DisplayName = "Color to String ", CompactNodeTitle = "~>"))
+	static void Conversions__ColorToString(const FLinearColor& Color, FString& ColorAsString);
 	
 	/** Get Custom Config Var! These are stored in Saved/Config/Windows/Game.ini */
 	//UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Custom Config Vars!")

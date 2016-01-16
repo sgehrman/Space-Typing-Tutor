@@ -1210,8 +1210,7 @@ float UVictoryBPFunctionLibrary::VictoryGetSoundVolume(USoundClass* SoundClassOb
 	return Props->Volume;
 	*/
 }
-
-
+ 
 void UVictoryBPFunctionLibrary::VictoryIntPlusEquals(UPARAM(ref) int32& Int, int32 Add, int32& IntOut)
 {  
 	Int += Add;
@@ -1247,6 +1246,11 @@ void UVictoryBPFunctionLibrary::Conversions__StringToColor(const FString& String
 { 
 	IsValid = ConvertedColor.InitFromString( String );
 }
+void UVictoryBPFunctionLibrary::Conversions__ColorToString(const FLinearColor& Color, FString& ColorAsString)
+{
+	ColorAsString = Color.ToString();
+}
+ 
 //String Back To Type
 
 
