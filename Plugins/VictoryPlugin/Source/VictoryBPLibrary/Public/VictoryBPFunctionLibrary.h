@@ -7,7 +7,7 @@
 
 //to prevent nodes from getting called in constructors:
 //meta=(UnsafeDuringActorConstruction = "true")
-	
+	 
 #include "VictoryISM.h"
  
 //~~~~~~~~~~~~ UMG ~~~~~~~~~~~~~~~
@@ -335,11 +335,17 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 
 	//~~~~~~~~~~~~~~~~~~~~
 
-	/** Creates a plane centered at Base, with facing direction of Normal. You can pass in a Rotator to the Normal, but it wont maintain the roll value, only pitch and yaw (usually sufficient) <3 Rama */
-	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Math|Plane", meta=(Keywords="plane"))
-	static FPlane CreatePlane(FVector Base, FVector Normal)
+	/** 
+	* Creates a plane centered on a world space point with a facing direction of Normal. 
+	* 
+	* @param Center  The world space point the plane should be centered on (easy to observe with DrawDebugPlane)
+	* @param Normal  The facing direction of the plane (can receive a Rotator)
+	* @return Plane coordinates
+	*/
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|Math|Plane", meta=(Keywords="make base plane"))
+	static FPlane CreatePlane(FVector Center, FVector Normal)
 	{ 
-		return FPlane(Base,Normal);
+		return FPlane(Center,Normal);
 	}
 	 
 	/** >0: point is in front of the plane, <0: behind, =0: on the plane **/ 
@@ -372,6 +378,21 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "sort float array"), Category = "VictoryBPLibrary|Array")
 	static void VictorySortFloatArray(UPARAM(ref) TArray<float>& FloatArray, TArray<float>& FloatArrayRef);
 	
+	
+	/* Returns true if vector2D A is equal to vector2D B (A == B) within a specified error tolerance */
+	UFUNCTION(BlueprintPure, meta=(DisplayName = "Equal (vector2D)", CompactNodeTitle = "==", Keywords = "== equal"), Category="Math|Vector2D")
+	static bool EqualEqual_Vector2DVector2D(FVector2D A, FVector2D B, float ErrorTolerance = 1.e-4f)
+	{
+		return A.Equals(B,ErrorTolerance);
+	}
+
+	/* Returns true if vector2D A is not equal to vector2D B (A != B) within a specified error tolerance */
+	UFUNCTION(BlueprintPure, meta=(DisplayName = "Not Equal (vector2D)", CompactNodeTitle = "!=", Keywords = "!= not equal"), Category="Math|Vector2D")
+	static bool NotEqual_Vector2DVector2D(FVector2D A, FVector2D B, float ErrorTolerance = 1.e-4f)
+	{
+		return !A.Equals(B,ErrorTolerance);
+	}
+
 	//~~~
 	
 	/**
@@ -597,8 +618,25 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	 
 	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary|AI",meta=(WorldContext="WorldContextObject"))
 		static AActor* GetClosestActorOfClassInRadiusOfActor(UObject* WorldContextObject, TSubclassOf<AActor> ActorClass, AActor* ActorCenter, float Radius, bool& IsValid);
-	 
+	  
+	/**
+	* Generates a box that is guaranteed to contain all of the supplied points.
+	*
+	* @param Points  The world space points that the box will encompass.
+	*/
+	UFUNCTION(BlueprintPure, Category = "VictoryBPLibrary")	
+	static void GetBoxContainingWorldPoints(const TArray<FVector>& Points, FVector& Center, FVector& Extent)
+	{ 
+		FBox Box(0);
 		
+		for(const FVector& Each : Points)
+		{
+			Box += Each;
+		} 
+		Center = Box.GetCenter();
+		Extent = Box.GetExtent();
+	}
+	 
 	/** Implementation of a Selection Marquee / Selection Box as a BP Node. AnchorPoint is the first clicked point, which user then drags from to make the box. Class filter is optional way to narrow the scope of actors that can be selected by the selection box! -Rama*/
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"))
 		static void Selection_SelectionBox(UObject* WorldContextObject, TArray<AActor*>& SelectedActors, FVector2D AnchorPoint, FVector2D DraggedPoint, TSubclassOf<AActor> ClassFilter);
@@ -608,10 +646,18 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
 		static bool PlayerController_GetControllerID(APlayerController* ThePC, int32& ControllerID);
 
-	/** Get the Unique PlayerID from the PlayerState for a supplied Player Controller <3 Rama. Returns false if operation could not occur. */
-	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
-		static bool PlayerState_GetPlayerID(APlayerController* ThePC, int32& PlayerID);
+	/** Get the Unique PlayerID from the PlayerState for a supplied Player Controller. Returns false if operation could not occur. Epic accepted my pull request for this a while back so now you can just GetPlayerState and directly access <3 Rama*/
+	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary|Networking")
+	static bool PlayerState_GetPlayerID(APlayerController* ThePC, int32& PlayerID);
 
+	/** Returns whether this game instance is single player.  <3 Rama*/
+	UFUNCTION(BlueprintPure, Category="VictoryBPLibrary|Networking", meta=(Keywords="Standalone multiplayer", WorldContext="WorldContextObject"))
+	static bool IsSinglePlayer(UObject* WorldContextObject)
+	{
+		UWorld* World = GEngine->GetWorldFromContextObject( WorldContextObject );
+		return World ? (World->GetNetMode() == NM_Standalone) : false;
+	}
+	 
 
 	/** Launches the specified URL in the OS default web browser :) <3 Rama */
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
@@ -1241,6 +1287,9 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	static class UAudioComponent* PlaySoundAttachedFromFile(const FString& FilePath, class USceneComponent* AttachToComponent, FName AttachPointName = NAME_None, FVector Location = FVector(ForceInit), EAttachLocation::Type LocationType = EAttachLocation::SnapToTarget, bool bStopWhenAttachedToDestroyed = false, float VolumeMultiplier = 1.f, float PitchMultiplier = 1.f, float StartTime = 0.f, class USoundAttenuation* AttenuationSettings = NULL);
 	 
 	/** Contributed by UE4 forum member n00854180t! Plays a .ogg sound at the given location. This is a fire and forget sound and does not travel with any actor. Replication is also not handled at this point.
+	*
+	* NOT SUPPORTED ON PS4. 
+	*
 	* @param FilePath - Path to sound file to play
 	* @param Location - World position to play sound at
 	* @param World - The World in which the sound is to be played
@@ -1251,19 +1300,23 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary", meta = (HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject", VolumeMultiplier = "1.0", PitchMultiplier = "1.0", AdvancedDisplay = "3", UnsafeDuringActorConstruction = "true"))
 	static void PlaySoundAtLocationFromFile(UObject* WorldContextObject, const FString& FilePath, FVector Location, float VolumeMultiplier = 1.f, float PitchMultiplier = 1.f, float StartTime = 0.f, class USoundAttenuation* AttenuationSettings = NULL);
 	
-	/** Contributed by UE4 forum member n00854180t! Creates a USoundWave* from file path.
+	/** Contributed by UE4 forum member n00854180t! Creates a USoundWave* from file path. 
 	* Read .ogg header file and refresh USoundWave metadata.
+	*
+	* NOT SUPPORTED ON PS4. 
+	*
 	* @param FilePath		path to file to create sound wave from
 	*/
 	UFUNCTION(BlueprintCallable, Category = "VictoryBPLibrary")
 	static class USoundWave* GetSoundWaveFromFile(const FString& FilePath);
 
+#if !PLATFORM_PS4
 private:
 	// Thanks to @keru for the base code for loading an Ogg into a USoundWave: 
 	// https://forums.unrealengine.com/showthread.php?7936-Custom-Music-Player&p=97659&viewfull=1#post97659
 
 	     /**
-        * Read .ogg header file and refresh USoundWave metadata.
+        * Read .ogg header file and refresh USoundWave metadata. NOT SUPPORTED BY PS4
         * @param sw             wave to put metadata
         * @param rawFile        pointer to src file in memory
         * @return 0     if everything is ok
@@ -1274,13 +1327,14 @@ private:
 
 
         /**
-        * Tries to find out FSoundSource object associated to the USoundWave.
+        * Tries to find out FSoundSource object associated to the USoundWave. NOT SUPPORTED BY PS4
         * @param sw     wave, search key
         * @return 0 if wave found and correctly set
         *        -1 if error: sound device not set
         *        -2 if error: sound wave not found
         */
 		static int32 findSource(class USoundWave* sw, class FSoundSource* out_audioSource);
+#endif //PLATFORM_PS4
 
 
 

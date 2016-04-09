@@ -3,10 +3,12 @@
 */
 #include "VictoryBPLibraryPrivatePCH.h"
  
+#include "VictoryBPFunctionLibrary.h"
+ 
 #include "StaticMeshResources.h"
 
-#include "Developer/ImageWrapper/Public/Interfaces/IImageWrapper.h"
-#include "Developer/ImageWrapper/Public/Interfaces/IImageWrapperModule.h"
+#include "Runtime/ImageWrapper/Public/Interfaces/IImageWrapper.h"
+#include "Runtime/ImageWrapper/Public/Interfaces/IImageWrapperModule.h"
 
 //Body Setup
 #include "PhysicsEngine/BodySetup.h"
@@ -2106,8 +2108,12 @@ FString UVictoryBPFunctionLibrary::RealWorldTime__GetCurrentOSTime(
 	Day = 					Now.GetDay( );
 	Month = 				Now.GetMonth( );
 	Year = 				Now.GetYear( );
-	
-	return Now.ToString();
+	 
+	//MS are not included in FDateTime::ToString(), so adding it
+	//The Parse function accepts if MS are present.
+	FString NowWithMS = Now.ToString();
+	NowWithMS += "." + FString::FromInt(MilliSeconds);
+	return NowWithMS;
 }
 
 void UVictoryBPFunctionLibrary::RealWorldTime__GetTimePassedSincePreviousTime(
@@ -2188,12 +2194,12 @@ bool UVictoryBPFunctionLibrary::CharacterMovement__SetMaxMoveSpeed(ACharacter* T
 	{
 		return false;
 	}
-	if(!TheCharacter->CharacterMovement)
+	if(!TheCharacter->GetCharacterMovement())
 	{
 		return false;
 	}
 	
-	TheCharacter->CharacterMovement->MaxWalkSpeed = NewMaxMoveSpeed;
+	TheCharacter->GetCharacterMovement()->MaxWalkSpeed = NewMaxMoveSpeed;
 	
 	return true;
 }
@@ -2455,7 +2461,7 @@ void UVictoryBPFunctionLibrary::Draw__Thick3DLineFromCharacterSocket(AActor* The
 {
 	ACharacter * AsCharacter = Cast<ACharacter>(TheCharacter);
 	if (!AsCharacter) return;
-	if (!AsCharacter->Mesh) return;
+	if (!AsCharacter->GetMesh()) return;
 	//~~~~~~~~~~~~~~~~~~~~
 	
 	//Get World
@@ -2463,7 +2469,7 @@ void UVictoryBPFunctionLibrary::Draw__Thick3DLineFromCharacterSocket(AActor* The
 	if (!TheWorld) return;
 	//~~~~~~~~~~~~~~~~~
 	
-	const FVector SocketLocation = AsCharacter->Mesh->GetSocketLocation(Socket);
+	const FVector SocketLocation = AsCharacter->GetMesh()->GetSocketLocation(Socket);
 	DrawDebugLine(
 		TheWorld, 
 		SocketLocation, 
@@ -2780,7 +2786,7 @@ bool UVictoryBPFunctionLibrary::Data__GetCharacterBoneLocations(AActor * TheChar
 	ACharacter * Source = Cast<ACharacter>(TheCharacter);
 	if (!Source) return false;
 	
-	if (!Source-> Mesh) return false;
+	if (!Source->GetMesh()) return false;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	TArray<FName> BoneNames;
 	
@@ -2788,12 +2794,12 @@ bool UVictoryBPFunctionLibrary::Data__GetCharacterBoneLocations(AActor * TheChar
 	
 	
 	//Get Bone Names
-	Source-> Mesh->GetBoneNames(BoneNames);
+	Source->GetMesh()->GetBoneNames(BoneNames);
 	
 	//Get Bone Locations
 	for (int32 Itr = 0; Itr < BoneNames.Num(); Itr++ )
 	{
-		BoneLocations.Add(Source->Mesh->GetBoneLocation(BoneNames[Itr]));
+		BoneLocations.Add(Source->GetMesh()->GetBoneLocation(BoneNames[Itr]));
 	}
 	
 	return true;
@@ -2806,13 +2812,13 @@ USkeletalMeshComponent* UVictoryBPFunctionLibrary::Accessor__GetCharacterSkeleta
 	ACharacter * AsCharacter = Cast<ACharacter>(TheCharacter);
 	if (!AsCharacter) return NULL;
 	//~~~~~~~~~~~~~~~~~
-	
+	 
 	//Is Valid?
-	if (AsCharacter->Mesh)
-		if (AsCharacter->Mesh->IsValidLowLevel() ) 
+	if (AsCharacter->GetMesh())
+		if (AsCharacter->GetMesh()->IsValidLowLevel() ) 
 			IsValid = true;
 			
-	return AsCharacter->Mesh;
+	return AsCharacter->GetMesh();
 }
 
 bool UVictoryBPFunctionLibrary::TraceData__GetTraceDataFromCharacterSocket(
@@ -2830,13 +2836,13 @@ bool UVictoryBPFunctionLibrary::TraceData__GetTraceDataFromCharacterSocket(
 	if (!AsCharacter) return false;
 	
 	//Mesh Exists?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
 	//Socket Exists?
-	if (!AsCharacter->Mesh->DoesSocketExist(Socket)) return false;
+	if (!AsCharacter->GetMesh()->DoesSocketExist(Socket)) return false;
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	TraceStart = AsCharacter->Mesh->GetSocketLocation(Socket);
+	TraceStart = AsCharacter->GetMesh()->GetSocketLocation(Socket);
 	TraceEnd = TraceStart + TraceRotation.Vector() * TraceLength;
 	
 	if (DrawTraceData) 
@@ -2963,10 +2969,10 @@ AActor*  UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestBone(
 	if (!AsCharacter) return HitActor;
 	
 	//Mesh
-	if (!AsCharacter->Mesh) return HitActor;
+	if (!AsCharacter->GetMesh()) return HitActor;
 	
 	//Component Trace
-	IsValid = AsCharacter->Mesh->K2_LineTraceComponent(
+	IsValid = AsCharacter->GetMesh()->K2_LineTraceComponent(
 		TraceStart, 
 		TraceEnd, 
 		true, 
@@ -2977,7 +2983,7 @@ AActor*  UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestBone(
 	); 
 	
 	//Location
-	ClosestBoneLocation = AsCharacter->Mesh->GetBoneLocation(ClosestBoneName);
+	ClosestBoneLocation = AsCharacter->GetMesh()->GetBoneLocation(ClosestBoneName);
 	
 	return HitActor;
 }
@@ -3032,11 +3038,11 @@ AActor* UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestSocket(
 	if (!AsCharacter) return HitActor;
 	
 	//Mesh
-	if (!AsCharacter->Mesh) return HitActor;
+	if (!AsCharacter->GetMesh()) return HitActor;
 	
 	//Component Trace
 	FName BoneName;
-	if (! AsCharacter->Mesh->K2_LineTraceComponent(
+	if (! AsCharacter->GetMesh()->K2_LineTraceComponent(
 		TraceStart, 
 		TraceEnd, 
 		true, 
@@ -3051,7 +3057,7 @@ AActor* UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestSocket(
 	TArray<FComponentSocketDescription> SocketNames;
 	
 	//Get Bone Names
-	AsCharacter->Mesh->QuerySupportedSockets(SocketNames);
+	AsCharacter->GetMesh()->QuerySupportedSockets(SocketNames);
 	
 	//						Min
 	FVector CurLoc;
@@ -3067,7 +3073,7 @@ AActor* UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestSocket(
 		if(SocketNames[Itr].Type == EComponentSocketType::Bone) continue;
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
-		CurLoc = AsCharacter->Mesh->GetSocketLocation(SocketNames[Itr].Name);
+		CurLoc = AsCharacter->GetMesh()->GetSocketLocation(SocketNames[Itr].Name);
 		
 		//Dist
 		CurDist = FVector::Dist(OutImpactPoint, CurLoc);
@@ -3084,7 +3090,7 @@ AActor* UVictoryBPFunctionLibrary::Traces__CharacterMeshTrace___ClosestSocket(
 	ClosestSocketName = SocketNames[ClosestVibe].Name;
 	
 	//Location
-	SocketLocation = AsCharacter->Mesh->GetSocketLocation(ClosestSocketName);
+	SocketLocation = AsCharacter->GetMesh()->GetSocketLocation(ClosestSocketName);
 	
 	//Valid
 	IsValid = true;
@@ -3301,14 +3307,14 @@ bool UVictoryBPFunctionLibrary::Physics__EnterRagDoll(AActor * TheCharacter)
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
 	//Physics Asset?
-	if(!AsCharacter->Mesh->GetPhysicsAsset()) return false;
+	if(!AsCharacter->GetMesh()->GetPhysicsAsset()) return false;
 	
 	//Victory Ragdoll
-	AsCharacter->Mesh->SetPhysicsBlendWeight(1);
-	AsCharacter->Mesh->bBlendPhysics = true;
+	AsCharacter->GetMesh()->SetPhysicsBlendWeight(1);
+	AsCharacter->GetMesh()->bBlendPhysics = true;
 	
 	return true;
 }
@@ -3324,26 +3330,26 @@ bool UVictoryBPFunctionLibrary::Physics__LeaveRagDoll(
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
 	//Set Actor Location to Be Near Ragdolled Mesh
 	//Calc Ref Bone Relative Pos for use with IsRagdoll
 	TArray<FName> BoneNames;
-	AsCharacter->Mesh->GetBoneNames(BoneNames);
+	AsCharacter->GetMesh()->GetBoneNames(BoneNames);
 	if(BoneNames.Num() > 0)
 	{
-		AsCharacter->SetActorLocation(FVector(0,0,HeightAboveRBMesh) + AsCharacter->Mesh->GetBoneLocation(BoneNames[0]));
+		AsCharacter->SetActorLocation(FVector(0,0,HeightAboveRBMesh) + AsCharacter->GetMesh()->GetBoneLocation(BoneNames[0]));
 	}
 	
 	//Exit Ragdoll
-	AsCharacter->Mesh->SetPhysicsBlendWeight(0); //1 for full physics
+	AsCharacter->GetMesh()->SetPhysicsBlendWeight(0); //1 for full physics
 
 	//Restore Defaults
-	AsCharacter->Mesh->SetRelativeRotation(InitRotation);
-	AsCharacter->Mesh->SetRelativeLocation(InitLocation);
+	AsCharacter->GetMesh()->SetRelativeRotation(InitRotation);
+	AsCharacter->GetMesh()->SetRelativeLocation(InitLocation);
 	
 	//Set Falling After Final Capsule Relocation
-	if(AsCharacter->CharacterMovement) AsCharacter->CharacterMovement->SetMovementMode(MOVE_Falling);	
+	if(AsCharacter->GetCharacterMovement()) AsCharacter->GetCharacterMovement()->SetMovementMode(MOVE_Falling);	
 	
 	return true;
 }	
@@ -3354,9 +3360,9 @@ bool UVictoryBPFunctionLibrary::Physics__IsRagDoll(AActor* TheCharacter)
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
-	return AsCharacter->Mesh->IsAnySimulatingPhysics();
+	return AsCharacter->GetMesh()->IsAnySimulatingPhysics();
 }	
 
 bool UVictoryBPFunctionLibrary::Physics__GetLocationofRagDoll(AActor* TheCharacter, FVector& RagdollLocation)
@@ -3365,13 +3371,13 @@ bool UVictoryBPFunctionLibrary::Physics__GetLocationofRagDoll(AActor* TheCharact
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
 	TArray<FName> BoneNames;
-	AsCharacter->Mesh->GetBoneNames(BoneNames);
+	AsCharacter->GetMesh()->GetBoneNames(BoneNames);
 	if(BoneNames.Num() > 0)
 	{
-		RagdollLocation = AsCharacter->Mesh->GetBoneLocation(BoneNames[0]);
+		RagdollLocation = AsCharacter->GetMesh()->GetBoneLocation(BoneNames[0]);
 	}
 	else return false;
 	
@@ -3387,10 +3393,10 @@ bool UVictoryBPFunctionLibrary::Physics__InitializeVictoryRagDoll(
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
-	InitLocation = AsCharacter->Mesh->GetRelativeTransform().GetLocation();
-	InitRotation = AsCharacter->Mesh->GetRelativeTransform().Rotator();
+	InitLocation = AsCharacter->GetMesh()->GetRelativeTransform().GetLocation();
+	InitRotation = AsCharacter->GetMesh()->GetRelativeTransform().Rotator();
 	
 	return true;
 }
@@ -3404,17 +3410,17 @@ bool UVictoryBPFunctionLibrary::Physics__UpdateCharacterCameraToRagdollLocation(
 	if (!AsCharacter) return false;
 	
 	//Mesh?
-	if (!AsCharacter->Mesh) return false;
+	if (!AsCharacter->GetMesh()) return false;
 	
 	//Ragdoll?
-	if(!AsCharacter->Mesh->IsAnySimulatingPhysics()) return false;
+	if(!AsCharacter->GetMesh()->IsAnySimulatingPhysics()) return false;
 	
 	FVector RagdollLocation = FVector(0,0,0);
 	TArray<FName> BoneNames;
-	AsCharacter->Mesh->GetBoneNames(BoneNames);
+	AsCharacter->GetMesh()->GetBoneNames(BoneNames);
 	if(BoneNames.Num() > 0)
 	{
-		RagdollLocation = AsCharacter->Mesh->GetBoneLocation(BoneNames[0]);
+		RagdollLocation = AsCharacter->GetMesh()->GetBoneLocation(BoneNames[0]);
 	}
 	
 	//Interp
@@ -3634,7 +3640,7 @@ bool UVictoryBPFunctionLibrary::AnimatedVertex__GetCharacterAnimatedVertexLocati
 	ACharacter * AsCharacter = Cast<ACharacter>(TheCharacter);
 	if (!AsCharacter) return false;
 	
-	USkeletalMeshComponent* Mesh = AsCharacter->Mesh;
+	USkeletalMeshComponent* Mesh = AsCharacter->GetMesh();
 	if (!Mesh) return false;
 	//~~~~~~~~~~~~~~~~~~~~
 	
@@ -3652,7 +3658,7 @@ bool UVictoryBPFunctionLibrary::AnimatedVertex__GetCharacterAnimatedVertexLocati
 	ACharacter * AsCharacter = Cast<ACharacter>(TheCharacter);
 	if (!AsCharacter) return false;
 	
-	USkeletalMeshComponent* Mesh = AsCharacter->Mesh;
+	USkeletalMeshComponent* Mesh = AsCharacter->GetMesh();
 	if (!Mesh) return false;
 	//~~~~~~~~~~~~~~~~~~~~
 	
@@ -3670,7 +3676,7 @@ bool UVictoryBPFunctionLibrary::AnimatedVertex__DrawCharacterAnimatedVertexLocat
 	ACharacter * AsCharacter = Cast<ACharacter>(TheCharacter);
 	if (!AsCharacter) return false;
 	
-	USkeletalMeshComponent* Mesh = AsCharacter->Mesh;
+	USkeletalMeshComponent* Mesh = AsCharacter->GetMesh();
 	if (!Mesh) return false;
 	//~~~~~~~~~~~~~~~~~~~~
 	
@@ -4415,6 +4421,11 @@ void UVictoryBPFunctionLibrary::PlaySoundAtLocationFromFile(UObject* WorldContex
 
 class USoundWave* UVictoryBPFunctionLibrary::GetSoundWaveFromFile(const FString& FilePath)
 {
+	#if PLATFORM_PS4
+	UE_LOG(LogTemp, Error, TEXT("UVictoryBPFunctionLibrary::GetSoundWaveFromFile ~ vorbis-method not supported on PS4. See UVictoryBPFunctionLibrary::fillSoundWaveInfo"));
+	return nullptr;
+	#endif
+	 
 	USoundWave* sw = NewObject<USoundWave>(USoundWave::StaticClass());
 
 	if (!sw)
@@ -4445,10 +4456,11 @@ class USoundWave* UVictoryBPFunctionLibrary::GetSoundWaveFromFile(const FString&
 	return sw;
 }
 
+#if !PLATFORM_PS4
 int32 UVictoryBPFunctionLibrary::fillSoundWaveInfo(class USoundWave* sw, TArray<uint8>* rawFile)
 {
-    FSoundQualityInfo info;
-    FVorbisAudioInfo vorbis_obj = FVorbisAudioInfo();
+    FSoundQualityInfo info; 
+    FVorbisAudioInfo vorbis_obj;
     if (!vorbis_obj.ReadCompressedInfo(rawFile->GetData(), rawFile->Num(), &info))
     {
         //Debug("Can't load header");
@@ -4505,8 +4517,8 @@ int32 UVictoryBPFunctionLibrary::findSource(class USoundWave* sw, class FSoundSo
 	out_audioSource = audioSource;
 	return -2;
 }
-
-
+#endif //PLATFORM_PS4
+ 
 //~~~ Kris ~~~
  
 bool UVictoryBPFunctionLibrary::Array_IsValidIndex(const TArray<int32>& TargetArray, int32 Index)
